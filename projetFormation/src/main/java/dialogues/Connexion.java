@@ -133,7 +133,7 @@ public class Connexion extends JFrame {
 		lblValider.setForeground(SystemColor.text);
 		lblValider.setBackground(SystemColor.textHighlight);
 		lblValider.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblValider.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\connection\\Power-48-actif.png"));
+		lblValider.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\connection\\Power-48.png"));
 		lblValider.setOpaque(true);
 		lblValider.setBounds(326, 247, 98, 26);
 		contentPane.add(lblValider);
