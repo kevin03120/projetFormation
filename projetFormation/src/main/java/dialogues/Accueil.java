@@ -108,6 +108,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnArticle, gbc_btnArticle);
 		
 		JButton btnClient = new JButton("");
+		btnClient.setSelectedIcon(new ImageIcon("C:\\images\\accueil\\People-128-actif.png"));
 		btnClient.setIcon(new ImageIcon("C:\\images\\accueil\\People-128.png"));
 		GridBagConstraints gbc_btnClient = new GridBagConstraints();
 		gbc_btnClient.insets = new Insets(0, 0, 5, 5);
