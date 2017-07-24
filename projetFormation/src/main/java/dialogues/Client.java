@@ -40,33 +40,33 @@ public class Client extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblClients = new JLabel("Clients");
-		lblClients.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\client\\People-64-actif.png"));
+		lblClients.setIcon(new ImageIcon("C:\\images\\gestion\\client\\People-64-actif.png"));
 		lblClients.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblClients.setBounds(10, 11, 132, 69);
 		panel.add(lblClients);
 		
 		JButton btnRechercher = new JButton("Rechercher");
-		btnRechercher.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\Search-48.png"));
+		btnRechercher.setIcon(new ImageIcon("C:\\images\\gestion\\Search-48.png"));
 		btnRechercher.setBounds(10, 153, 141, 51);
 		panel.add(btnRechercher);
 		
 		JButton btnAjouter = new JButton("      Ajouter");
 		btnAjouter.setBounds(10, 91, 141, 51);
 		panel.add(btnAjouter);
-		btnAjouter.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\Add-New-48.png"));
+		btnAjouter.setIcon(new ImageIcon("C:\\images\\gestion\\Add-New-48.png"));
 		
 		JButton btnModifier = new JButton("Modifier");
-		btnModifier.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\Data-Edit-48.png"));
+		btnModifier.setIcon(new ImageIcon("C:\\images\\gestion\\Data-Edit-48.png"));
 		btnModifier.setBounds(10, 215, 142, 51);
 		panel.add(btnModifier);
 		
 		JButton btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\Garbage-Open-48.png"));
+		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
 		btnSupprimer.setBounds(10, 277, 142, 51);
 		panel.add(btnSupprimer);
 		
 		JButton btnApercu = new JButton("Aper\u00E7u");
-		btnApercu.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\Preview-48.png"));
+		btnApercu.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
 		btnApercu.setBounds(10, 361, 141, 51);
 		panel.add(btnApercu);
 		

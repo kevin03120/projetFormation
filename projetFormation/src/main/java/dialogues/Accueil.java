@@ -47,7 +47,7 @@ public class Accueil extends JFrame {
 	 * Create the frame.
 	 */
 	public Accueil() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\Moon-32.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\images\\Moon-32.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 525);
 		
@@ -79,7 +79,7 @@ public class Accueil extends JFrame {
 		lblRetour.setBackground(SystemColor.controlHighlight);
 		lblRetour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRetour.setOpaque(true);
-		lblRetour.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\connection\\Stop-48.png"));
+		lblRetour.setIcon(new ImageIcon("C:\\images\\connection\\Stop-48.png"));
 		lblRetour.setBounds(0, 392, 126, 35);
 		panel.add(lblRetour);
 		
@@ -100,7 +100,7 @@ public class Accueil extends JFrame {
 		panel_1.setLayout(gbl_panel_1);
 		
 		JButton btnArticle = new JButton("");
-		btnArticle.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\accueil\\Product-128.png"));
+		btnArticle.setIcon(new ImageIcon("C:\\images\\accueil\\Product-128.png"));
 		GridBagConstraints gbc_btnArticle = new GridBagConstraints();
 		gbc_btnArticle.insets = new Insets(0, 0, 5, 5);
 		gbc_btnArticle.gridx = 1;
@@ -108,7 +108,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnArticle, gbc_btnArticle);
 		
 		JButton btnClient = new JButton("");
-		btnClient.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\accueil\\People-128.png"));
+		btnClient.setIcon(new ImageIcon("C:\\images\\accueil\\People-128.png"));
 		GridBagConstraints gbc_btnClient = new GridBagConstraints();
 		gbc_btnClient.insets = new Insets(0, 0, 5, 5);
 		gbc_btnClient.gridx = 0;
@@ -116,7 +116,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnClient, gbc_btnClient);
 		
 		JButton btnStatistique = new JButton("");
-		btnStatistique.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\accueil\\Diagram-128.png"));
+		btnStatistique.setIcon(new ImageIcon("C:\\images\\accueil\\Diagram-128.png"));
 		GridBagConstraints gbc_btnStatistique = new GridBagConstraints();
 		gbc_btnStatistique.insets = new Insets(0, 0, 5, 5);
 		gbc_btnStatistique.gridx = 1;
@@ -124,7 +124,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnStatistique, gbc_btnStatistique);
 		
 		JButton btnCommande = new JButton("");
-		btnCommande.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\accueil\\Shopping-Bag-128.png"));
+		btnCommande.setIcon(new ImageIcon("C:\\images\\accueil\\Shopping-Bag-128.png"));
 		GridBagConstraints gbc_btnCommande = new GridBagConstraints();
 		gbc_btnCommande.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCommande.gridx = 2;
@@ -132,7 +132,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnCommande, gbc_btnCommande);
 		
 		JButton btnParametre = new JButton("");
-		btnParametre.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\accueil\\Settings-02-128.png"));
+		btnParametre.setIcon(new ImageIcon("C:\\images\\accueil\\Settings-02-128.png"));
 		GridBagConstraints gbc_btnParametre = new GridBagConstraints();
 		gbc_btnParametre.insets = new Insets(0, 0, 0, 5);
 		gbc_btnParametre.gridx = 1;
