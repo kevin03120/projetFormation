@@ -84,6 +84,15 @@ public class Accueil extends JFrame {
 		lblNomSociete.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
 		JLabel lblRetour = new JLabel("Retour");
+		lblRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				Connexion fenetreConnexion = new Connexion();
+				fenetreConnexion.setVisible(true);
+				
+			}
+		});
 		lblRetour.setBackground(SystemColor.controlHighlight);
 		lblRetour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRetour.setOpaque(true);
