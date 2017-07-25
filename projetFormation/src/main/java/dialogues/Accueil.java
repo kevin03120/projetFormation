@@ -135,10 +135,7 @@ public class Accueil extends JFrame {
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				JFrame fenetreClient = new JFrame();
-				Client panelClient = new Client();
-				fenetreClient.getContentPane().add(panelClient);
-				fenetreClient.setSize(775, 586);
+				ClientAccueil fenetreClient = new ClientAccueil();
 				fenetreClient.setVisible(true);
 			}
 		});
