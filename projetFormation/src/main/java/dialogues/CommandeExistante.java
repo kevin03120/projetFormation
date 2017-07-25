@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CommandeExistante extends JFrame {
 
@@ -91,6 +93,14 @@ public class CommandeExistante extends JFrame {
 		panel.add(lblExport);
 		
 		JLabel lblAccueil = new JLabel("Accueil");
+		lblAccueil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				Accueil fenetreAccueil = new Accueil();
+				fenetreAccueil.setVisible(true);
+			}
+		});
 		lblAccueil.setIcon(new ImageIcon("C:\\images\\gestion\\Home-48.png"));
 		lblAccueil.setForeground(Color.WHITE);
 		lblAccueil.setFont(new Font("Tahoma", Font.BOLD, 12));

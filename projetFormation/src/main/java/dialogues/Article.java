@@ -19,6 +19,8 @@ import javax.swing.JToolBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Article extends JFrame {
 
@@ -71,6 +73,13 @@ public class Article extends JFrame {
 		menuPanel.add(lblArticles);
 		
 		JButton btnNewButton = new JButton("Accueil\r\n");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Accueil fenetreAccueil = new Accueil();
+				fenetreAccueil.setVisible(true);
+			}
+		});
 		btnNewButton.setBounds(10, 536, 140, 55);
 		btnNewButton.setBackground(new Color(51, 204, 0));
 		btnNewButton.setForeground(new Color(255, 255, 255));
