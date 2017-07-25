@@ -12,17 +12,26 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import controle.UserDaoMysql;
+import metier.User;
+import singleton.GlobalConnection;
+
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Toolkit;
+import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Connexion extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNomUtilisateur;
 	private JTextField txtMotDePasse;
+	private List<User> users;
 
 	/**
 	 * Launch the application.
@@ -44,6 +53,11 @@ public class Connexion extends JFrame {
 	 * Create the frame.
 	 */
 	public Connexion() {
+		String db = "jdbc:mysql://localhost:3306/luna";
+		UserDaoMysql userDao = new UserDaoMysql(GlobalConnection.getInstance());
+		users = userDao.getAllUser();
+		
+		
 		setTitle("SARL LUNA");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\images\\Moon-32.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,6 +145,20 @@ public class Connexion extends JFrame {
 		contentPane.add(lblQuitter);
 		
 		JLabel lblValider = new JLabel("Valider");
+		lblValider.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(testConnexion()){
+					setVisible(false);
+					Accueil accueil = new Accueil();
+					accueil.setVisible(true);
+				}
+				else{
+					Erreur erreur = new Erreur();
+					erreur.setVisible(true);
+				}
+			}
+		});
 		lblValider.setForeground(SystemColor.text);
 		lblValider.setBackground(SystemColor.textHighlight);
 		lblValider.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -138,5 +166,15 @@ public class Connexion extends JFrame {
 		lblValider.setOpaque(true);
 		lblValider.setBounds(326, 247, 98, 26);
 		contentPane.add(lblValider);
+		
+		
+	}
+	public boolean testConnexion(){
+		for (User user : users) {
+			if(txtNomUtilisateur.getText().equals(user.getNom())&&txtMotDePasse.getText().equals(user.getMdp())){
+				return true;
+			}
+		}
+		return false;
 	}
 }
