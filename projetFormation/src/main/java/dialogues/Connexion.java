@@ -12,11 +12,16 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Connexion extends JFrame {
 
@@ -125,6 +130,12 @@ public class Connexion extends JFrame {
 		contentPane.add(lblParametres);
 		
 		JLabel lblQuitter = new JLabel("Quitter");
+		lblQuitter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
 		lblQuitter.setIcon(new ImageIcon("C:\\images\\connection\\Stop-48.png"));
 		lblQuitter.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblQuitter.setBounds(180, 246, 104, 27);
