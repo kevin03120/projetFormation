@@ -22,6 +22,8 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Accueil extends JFrame {
 
@@ -109,6 +111,12 @@ public class Accueil extends JFrame {
 		panel_1.add(btnArticle, gbc_btnArticle);
 		
 		JButton btnClient = new JButton("");
+		btnClient.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnClient.setIcon(new ImageIcon("C:\\images\\accueil\\People-128-actif.png"));
+			}
+		});
 		btnClient.setIcon(new ImageIcon("C:\\images\\accueil\\People-128.png"));
 		GridBagConstraints gbc_btnClient = new GridBagConstraints();
 		gbc_btnClient.insets = new Insets(0, 0, 5, 5);
