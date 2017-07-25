@@ -44,6 +44,7 @@ public class Connexion extends JFrame {
 	 * Create the frame.
 	 */
 	public Connexion() {
+		setTitle("SARL LUNA");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\images\\Moon-32.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 327);
