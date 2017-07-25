@@ -72,20 +72,21 @@ public class Article extends JFrame {
 		lblArticles.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuPanel.add(lblArticles);
 		
-		JButton btnNewButton = new JButton("Accueil\r\n");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAccueil = new JButton("Accueil\r\n");
+		btnAccueil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				Accueil fenetreAccueil = new Accueil();
-				fenetreAccueil.setVisible(true);
+				fenetreAccueil.setVisible(true);		
 			}
 		});
-		btnNewButton.setBounds(10, 536, 140, 55);
-		btnNewButton.setBackground(new Color(51, 204, 0));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton.setIcon(new ImageIcon("C:\\images\\gestion\\Home-48.png"));
-		menuPanel.add(btnNewButton);
+		btnAccueil.setBounds(10, 536, 140, 55);
+		btnAccueil.setBackground(new Color(51, 204, 0));
+		btnAccueil.setForeground(new Color(255, 255, 255));
+		btnAccueil.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnAccueil.setIcon(new ImageIcon("C:\\images\\gestion\\Home-48.png"));
+		menuPanel.add(btnAccueil);
+		UI.deshabillerBouton(btnAccueil);
 		
 		JButton btnApercu = new JButton("Aper\u00E7u");
 		btnApercu.setForeground(new Color(255, 255, 255));
@@ -94,6 +95,7 @@ public class Article extends JFrame {
 		btnApercu.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnApercu.setBounds(10, 218, 140, 30);
 		menuPanel.add(btnApercu);
+		UI.deshabillerBouton(btnApercu);
 		
 		JButton btnImprimer = new JButton("Imprimer");
 		btnImprimer.setForeground(new Color(255, 255, 255));
@@ -102,6 +104,7 @@ public class Article extends JFrame {
 		btnImprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnImprimer.setBounds(10, 265, 140, 30);
 		menuPanel.add(btnImprimer);
+		UI.deshabillerBouton(btnImprimer);
 		
 		JButton btnExporter = new JButton("Export");
 		btnExporter.setForeground(new Color(255, 255, 255));
@@ -110,6 +113,7 @@ public class Article extends JFrame {
 		btnExporter.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExporter.setBounds(10, 311, 140, 30);
 		menuPanel.add(btnExporter);
+		UI.deshabillerBouton(btnExporter);
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(255, 255, 153));
@@ -187,6 +191,7 @@ public class Article extends JFrame {
 		btnAjouter.setIcon(new ImageIcon("C:\\images\\gestion\\Add-New-48.png"));
 		btnAjouter.setBounds(10, 102, 150, 50);
 		panel.add(btnAjouter);
+		UI.deshabillerBouton(btnAjouter);
 		
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setEnabled(false);
@@ -194,6 +199,7 @@ public class Article extends JFrame {
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnModifier.setBounds(199, 101, 150, 50);
 		panel.add(btnModifier);
+		UI.deshabillerBouton(btnModifier);
 		
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.setEnabled(false);
@@ -201,12 +207,14 @@ public class Article extends JFrame {
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSupprimer.setBounds(410, 102, 150, 50);
 		panel.add(btnSupprimer);
+		UI.deshabillerBouton(btnSupprimer);
 		
 		JButton btnEffacer = new JButton("Effacer");
 		btnEffacer.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
 		btnEffacer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnEffacer.setBounds(606, 102, 150, 50);
 		panel.add(btnEffacer);
+		UI.deshabillerBouton(btnEffacer);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 161, 790, 400);
@@ -247,5 +255,7 @@ public class Article extends JFrame {
 		textField_4.setBounds(534, 570, 227, 20);
 		mainPanel.add(textField_4);
 		textField_4.setColumns(10);
+		
+		
 	}
 }
