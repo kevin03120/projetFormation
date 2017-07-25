@@ -1,4 +1,4 @@
-package dialogues;
+package src.main.java.dialogues;
 
 import javax.swing.JPanel;
 import java.awt.SystemColor;

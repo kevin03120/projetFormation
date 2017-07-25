@@ -1,4 +1,4 @@
-package controle;
+package src.main.java.controle;
 
 public class ModeleClient {
 

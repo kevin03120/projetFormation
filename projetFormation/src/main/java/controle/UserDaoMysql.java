@@ -1,4 +1,4 @@
-package controle;
+package src.main.java.controle;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import metier.User;
+import src.main.java.metier.User;
 
 public class UserDaoMysql {
 	Connection conn = null;
@@ -38,6 +38,7 @@ public class UserDaoMysql {
 		}
 		return users;
 	}
+	
 
 
 }

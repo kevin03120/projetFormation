@@ -1,4 +1,4 @@
-package metier;
+package src.main.java.metier;
 
 public class User {
 

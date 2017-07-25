@@ -1,4 +1,4 @@
-package dialogues;
+package src.main.java.dialogues;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package dialogues;
+package src.main.java.dialogues;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,9 +12,9 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
-import controle.UserDaoMysql;
-import metier.User;
-import singleton.GlobalConnection;
+import src.main.java.controle.UserDaoMysql;
+import src.main.java.metier.User;
+import src.main.java.singleton.GlobalConnection;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.awt.SystemColor;
@@ -25,13 +25,14 @@ import java.awt.Toolkit;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JPasswordField;
 
 public class Connexion extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNomUtilisateur;
-	private JTextField txtMotDePasse;
 	private List<User> users;
+	private JPasswordField txtMotDePasse;
 
 	/**
 	 * Launch the application.
@@ -109,11 +110,6 @@ public class Connexion extends JFrame {
 		lblIconMotDePasse.setBounds(126, 43, 16, 14);
 		panel.add(lblIconMotDePasse);
 		
-		txtMotDePasse = new JTextField();
-		txtMotDePasse.setBounds(152, 40, 252, 20);
-		panel.add(txtMotDePasse);
-		txtMotDePasse.setColumns(10);
-		
 		JLabel lblConseilPart1 = new JLabel("Veuillez saisir");
 		lblConseilPart1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblConseilPart1.setForeground(SystemColor.controlShadow);
@@ -131,6 +127,10 @@ public class Connexion extends JFrame {
 		lblConseilPart3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblConseilPart3.setBounds(13, 127, 258, 14);
 		panel.add(lblConseilPart3);
+		
+		txtMotDePasse = new JPasswordField();
+		txtMotDePasse.setBounds(152, 40, 252, 20);
+		panel.add(txtMotDePasse);
 		
 		JLabel lblParametres = new JLabel("Param\u00E8tres");
 		lblParametres.setIcon(new ImageIcon("C:\\images\\connection\\Customize-01-48.png"));

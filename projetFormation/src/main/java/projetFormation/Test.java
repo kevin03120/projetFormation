@@ -1,4 +1,4 @@
-package projetFormation;
+package src.main.java.projetFormation;
 
 public class Test {
 

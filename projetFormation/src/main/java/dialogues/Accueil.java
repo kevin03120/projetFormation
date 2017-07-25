@@ -1,4 +1,4 @@
-package dialogues;
+package src.main.java.dialogues;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -90,7 +90,6 @@ public class Accueil extends JFrame {
 				setVisible(false);
 				Connexion fenetreConnexion = new Connexion();
 				fenetreConnexion.setVisible(true);
-				
 			}
 		});
 		lblRetour.setBackground(SystemColor.controlHighlight);

@@ -1,4 +1,4 @@
-package singleton;
+package src.main.java.singleton;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
