@@ -188,7 +188,7 @@ public class Client extends JPanel {
 		scrollPane.setViewportView(comboBoxChoix);
 		
 		JLabel lblTrierLaListe = new JLabel("Trier la liste par");
-		lblTrierLaListe.setIcon(new ImageIcon("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\gestion\\Sort-Ascending-32.png"));
+		lblTrierLaListe.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));
 		lblTrierLaListe.setBounds(23, 256, 110, 14);
 		panel_2.add(lblTrierLaListe);
 		
