@@ -47,7 +47,7 @@ public class Accueil extends JFrame {
 	 * Create the frame.
 	 */
 	public Accueil() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\SDJ05\\git\\projetFormation\\projetFormation\\target\\images\\Moon-32.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\images\\Moon-32.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 525);
 		
