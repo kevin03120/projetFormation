@@ -17,11 +17,16 @@ import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Panel;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Accueil extends JFrame {
 
@@ -100,6 +105,13 @@ public class Accueil extends JFrame {
 		panel_1.setLayout(gbl_panel_1);
 		
 		JButton btnArticle = new JButton("");
+		btnArticle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Article fenetreArticle = new Article();
+				fenetreArticle.setVisible(true);
+			}
+		});
 		btnArticle.setIcon(new ImageIcon("C:\\images\\accueil\\Product-128.png"));
 		GridBagConstraints gbc_btnArticle = new GridBagConstraints();
 		gbc_btnArticle.insets = new Insets(0, 0, 5, 5);
@@ -108,6 +120,18 @@ public class Accueil extends JFrame {
 		panel_1.add(btnArticle, gbc_btnArticle);
 		
 		JButton btnClient = new JButton("");
+		btnClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				JFrame fenetreClient = new JFrame();
+				Client panelClient = new Client();
+				fenetreClient.getContentPane().add(panelClient);
+				fenetreClient.setVisible(true);
+				
+				
+				
+			}
+		});
 		btnClient.setIcon(new ImageIcon("C:\\images\\accueil\\People-128.png"));
 		GridBagConstraints gbc_btnClient = new GridBagConstraints();
 		gbc_btnClient.insets = new Insets(0, 0, 5, 5);
