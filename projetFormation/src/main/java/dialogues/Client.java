@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Client extends JPanel {
 	private JTextField txtCode;
@@ -79,6 +81,14 @@ public class Client extends JPanel {
 		panel.add(btnExport);
 		
 		JButton btnAccueil = new JButton("Accueil");
+		btnAccueil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				Accueil fenetreAccueil = new Accueil();
+				fenetreAccueil.setVisible(true);
+			}
+		});
 		btnAccueil.setBounds(10, 519, 142, 23);
 		panel.add(btnAccueil);
 		

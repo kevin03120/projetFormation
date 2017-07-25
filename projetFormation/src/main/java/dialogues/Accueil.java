@@ -127,10 +127,8 @@ public class Accueil extends JFrame {
 				JFrame fenetreClient = new JFrame();
 				Client panelClient = new Client();
 				fenetreClient.getContentPane().add(panelClient);
+				fenetreClient.setSize(775, 586);
 				fenetreClient.setVisible(true);
-				
-				
-				
 			}
 		});
 		btnClient.setIcon(new ImageIcon("C:\\images\\accueil\\People-128.png"));
@@ -149,6 +147,13 @@ public class Accueil extends JFrame {
 		panel_1.add(btnStatistique, gbc_btnStatistique);
 		
 		JButton btnCommande = new JButton("");
+		btnCommande.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Commande fenetreCommande = new Commande();
+				fenetreCommande.setVisible(true);
+			}
+		});
 		btnCommande.setIcon(new ImageIcon("C:\\images\\accueil\\Shopping-Bag-128.png"));
 		GridBagConstraints gbc_btnCommande = new GridBagConstraints();
 		gbc_btnCommande.insets = new Insets(0, 0, 5, 0);

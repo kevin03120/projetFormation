@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Commande extends JFrame {
 
@@ -79,6 +81,14 @@ public class Commande extends JFrame {
 		panel.add(lblCommande);
 		
 		JLabel lblCommandeExistante = new JLabel("Commandes existantes");
+		lblCommandeExistante.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				CommandeExistante fenetreCommEx = new CommandeExistante();
+				fenetreCommEx.setVisible(true);
+			}
+		});
 		lblCommandeExistante.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCommandeExistante.setForeground(new Color(255, 255, 255));
 		lblCommandeExistante.setIcon(new ImageIcon("C:\\images\\gestion\\commande\\Receipt-48.png"));
@@ -128,6 +138,14 @@ public class Commande extends JFrame {
 		panel.add(lblExport);
 		
 		JLabel lblAccueil = new JLabel("Accueil");
+		lblAccueil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				Accueil fenetreAccueil = new Accueil();
+				fenetreAccueil.setVisible(true);
+			}
+		});
 		lblAccueil.setIcon(new ImageIcon("C:\\images\\gestion\\Home-48.png"));
 		lblAccueil.setForeground(Color.WHITE);
 		lblAccueil.setFont(new Font("Tahoma", Font.BOLD, 13));
