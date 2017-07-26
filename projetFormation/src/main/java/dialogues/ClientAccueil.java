@@ -6,8 +6,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +28,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
+
+import src.main.java.controle.ClientDaoMysql;
+import src.main.java.controle.ModeleDynamiqueClient;
+import src.main.java.controle.UserDaoMysql;
+import src.main.java.metier.Client;
+import src.main.java.singleton.GlobalConnection;
+import javax.swing.DefaultComboBoxModel;
 
 public class ClientAccueil extends JFrame {
 	private JTextField txtCode;
@@ -34,7 +47,8 @@ public class ClientAccueil extends JFrame {
 	private JTextField txtMobile;
 	private JTextField txtEmail;
 	private JTextField txtRemarques;
-	private JTable comboBoxChoix;
+	private JTable tblClient;
+	private List<Client> mesClients;
 
 	private JPanel contentPane;
 
@@ -83,6 +97,7 @@ public class ClientAccueil extends JFrame {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ClientAjout clientA = new ClientAjout();
+				setSize(820, 585);
 				panelClient.setVisible(false);
 				setContentPane(clientA);	
 			}
@@ -140,6 +155,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblCode);
 
 		txtCode = new JTextField();
+		txtCode.setEnabled(false);
 		txtCode.setBounds(72, 8, 175, 20);
 		panel_1.add(txtCode);
 		txtCode.setColumns(10);
@@ -149,11 +165,13 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblCreation);
 
 		txtCreation = new JTextField();
+		txtCreation.setEnabled(false);
 		txtCreation.setBounds(303, 8, 175, 20);
 		panel_1.add(txtCreation);
 		txtCreation.setColumns(10);
 
 		JCheckBox chkboxFidelite = new JCheckBox("Carte de fid\u00E9lit\u00E9");
+		chkboxFidelite.setEnabled(false);
 		chkboxFidelite.setBackground(new Color(175, 238, 238));
 		chkboxFidelite.setBounds(479, 7, 115, 23);
 		panel_1.add(chkboxFidelite);
@@ -163,6 +181,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblPrenom);
 
 		txtPrenom = new JTextField();
+		txtPrenom.setEnabled(false);
 		txtPrenom.setBounds(72, 33, 175, 20);
 		panel_1.add(txtPrenom);
 		txtPrenom.setColumns(10);
@@ -172,6 +191,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblNom);
 
 		txtNom = new JTextField();
+		txtNom.setEnabled(false);
 		txtNom.setBounds(303, 33, 287, 20);
 		panel_1.add(txtNom);
 		txtNom.setColumns(10);
@@ -181,6 +201,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblAdresse);
 
 		txtAdresse = new JTextField();
+		txtAdresse.setEnabled(false);
 		txtAdresse.setBounds(72, 58, 518, 20);
 		panel_1.add(txtAdresse);
 		txtAdresse.setColumns(10);
@@ -190,6 +211,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblFixe);
 
 		txtFixe = new JTextField();
+		txtFixe.setEnabled(false);
 		txtFixe.setBounds(72, 85, 175, 20);
 		panel_1.add(txtFixe);
 		txtFixe.setColumns(10);
@@ -199,6 +221,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblMobile);
 
 		txtMobile = new JTextField();
+		txtMobile.setEnabled(false);
 		txtMobile.setBounds(303, 85, 287, 20);
 		panel_1.add(txtMobile);
 		txtMobile.setColumns(10);
@@ -208,6 +231,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblEmail);
 
 		txtEmail = new JTextField();
+		txtEmail.setEnabled(false);
 		txtEmail.setBounds(72, 110, 518, 20);
 		panel_1.add(txtEmail);
 		txtEmail.setColumns(10);
@@ -217,6 +241,7 @@ public class ClientAccueil extends JFrame {
 		panel_1.add(lblRemarques);
 
 		txtRemarques = new JTextField();
+		txtRemarques.setEnabled(false);
 		txtRemarques.setBounds(72, 135, 518, 124);
 		panel_1.add(txtRemarques);
 		txtRemarques.setColumns(10);
@@ -231,18 +256,81 @@ public class ClientAccueil extends JFrame {
 		scrollPane.setBounds(0, 0, 600, 245);
 		panel_2.add(scrollPane);
 
-		comboBoxChoix = new JTable();
-		scrollPane.setViewportView(comboBoxChoix);
+		tblClient = new JTable();
+		tblClient.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Code", "Nom", "Pr\u00E9nom", "Carte de fid\u00E9lit\u00E9", "Date de cr\u00E9ation"
+			}
+		));
+		scrollPane.setViewportView(tblClient);
 
 		JLabel lblTrierLaListe = new JLabel("Trier la liste par");
 		lblTrierLaListe.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));
-		lblTrierLaListe.setBounds(23, 256, 110, 14);
+		lblTrierLaListe.setBounds(23, 256, 196, 14);
 		panel_2.add(lblTrierLaListe);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(143, 253, 71, 20);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ordre alphabetique des noms", "Ordre alphabetique des prenoms"}));
+		comboBox.setBounds(229, 253, 224, 20);
 		panel_2.add(comboBox);
+		
+		String db = "jdbc:mysql://localhost:3306/luna";
+		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
+		mesClients = clientDao.getAllClient();
+		tblClient.setModel(new ModeleDynamiqueClient(mesClients));
+		comboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                //
+                // Get the source of the component, which is our combo
+                // box.
+                //
+                JComboBox comboBox = (JComboBox) event.getSource();
 
+                if(comboBox.getSelectedIndex()==0){
+                	ModeleDynamiqueClient modeleAphabetiqueNom = new ModeleDynamiqueClient(TriOrdreAlphabetiqueNom());
+                	tblClient.setModel(modeleAphabetiqueNom);
+                }else{
+                	ModeleDynamiqueClient modeleAphabetiquePrenom = new ModeleDynamiqueClient(TriOrdreAlphabetiquePrenom());
+                	tblClient.setModel(modeleAphabetiquePrenom);
+                }
+            }
+        });
+	}
+	
+	public List<Client> TriOrdreAlphabetiqueNom(){
+		List<String> nomClient = new ArrayList<String>();
+		List<Client> nouvelleList = new ArrayList<Client>();
+		for (Client client : mesClients) {
+			nomClient.add(client.getNom());
+		}
+		Collections.sort(nomClient);
+		for(String nom : nomClient){
+			for(Client client : mesClients){
+				if(client.getNom().equals(nom)){
+					nouvelleList.add(client);
+				}
+			}
+		}
+		return nouvelleList;
+	}
+	
+	public List<Client> TriOrdreAlphabetiquePrenom(){
+		List<String> prenomClient = new ArrayList<String>();
+		List<Client> nouvelleList = new ArrayList<Client>();
+		for (Client client : mesClients) {
+			prenomClient.add(client.getPrenom());
+		}
+		Collections.sort(prenomClient);
+		for(String prenom : prenomClient){
+			for(Client client : mesClients){
+				if(client.getPrenom().equals(prenom)){
+					nouvelleList.add(client);
+				}
+			}
+		}
+		return nouvelleList;
 	}
 
 }

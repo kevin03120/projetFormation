@@ -75,11 +75,7 @@ public class ClientAjout extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				ClientAccueil clientAcc = new ClientAccueil();
 				removeAll();
-				clientAcc.setVisible(false);
-				
-				
-				
-				
+				clientAcc.setVisible(false);		
 			}
 		});
 		btnAnnuler.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
