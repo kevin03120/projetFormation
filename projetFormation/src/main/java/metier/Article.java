@@ -1,24 +1,24 @@
 package src.main.java.metier;
 
 public class Article {
-	private String code;
-	private int categorie;
+	private int code;
+	private String categorie;
 	private String designation;
 	private int quantite;
 	private double prixUnitaire;
 
 	
 	//Getters and Setters
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
-	public int getCategorie() {
+	public String getCategorie() {
 		return categorie;
 	}
-	public void setCategorie(int categorie) {
+	public void setCategorie(String categorie) {
 		this.categorie = categorie;
 	}
 	public String getDesignation() {

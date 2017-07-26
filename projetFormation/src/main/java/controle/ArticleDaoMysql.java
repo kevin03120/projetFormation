@@ -24,15 +24,15 @@ public class ArticleDaoMysql {
 		List<Article> listArticles = new ArrayList<Article>();
 		try {
 			state = conn.createStatement();
-			res = state.executeQuery("SELECT * FROM Article");
+			res = state.executeQuery("SELECT * FROM article, categorie WHERE categorie.id_categorie = article.id_categorie");
 			
 			while(res.next()) {
 				article = new Article();
-				article.setCode(res.getString("code"));
+				article.setCode(res.getInt("id_article"));
 				article.setDesignation(res.getString("designation"));
 				article.setQuantite(res.getInt("quantite"));
 				article.setPrixUnitaire(res.getDouble("prix"));	
-				article.setCategorie(res.getInt("id_categorie"));	
+				article.setCategorie(res.getString("nom_categorie"));	
 				listArticles.add(article);
 			}
 		} catch (SQLException e) {
