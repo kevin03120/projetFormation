@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import src.main.java.controle.ArticleDaoMysql;
 import src.main.java.controle.ClientDaoMysql;
 import src.main.java.controle.ModeleDynamiqueArticle;
+import src.main.java.controle.ModeleDynamiqueClient;
 import src.main.java.controle.UserDaoMysql;
 import src.main.java.singleton.GlobalConnection;
 import src.main.java.metier.Article;
@@ -52,7 +53,7 @@ public class ArticleAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ArticleAccueil frame = new ArticleAccueil();
+					ArticleAccueil frame = new ArticleAccueil(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +65,15 @@ public class ArticleAccueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ArticleAccueil() {
+	public ArticleAccueil(List<Article> lesBasesArticles) {
+		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+		if (lesBasesArticles == null) {
+			lesArticles = articleDao.getAllArticles();
+		} else {
+			lesArticles = lesBasesArticles;
+		}
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 968, 640);
 		contentPane = new JPanel();
@@ -254,6 +263,7 @@ public class ArticleAccueil extends JFrame {
 				"Code", "Code cat\u00E9gorie", "D\u00E9signation", "Quantit\u00E9", "Prix unitaire"
 			}
 		));
+		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
 		scrollPane.setColumnHeaderView(tableArticles);
 		scrollPane.setViewportView(tableArticles);
 		
@@ -290,15 +300,7 @@ public class ArticleAccueil extends JFrame {
 		mainPanel.add(txtRecherche);
 		txtRecherche.setColumns(10);
 		
-		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-		System.out.println(articleDao.getRes());
-		lesArticles = articleDao.getAllArticles();
-		System.out.println(lesArticles.size());
-		for(int i = 0; i< lesArticles.size(); i++) {
-			System.out.println(lesArticles.get(i).getCode());
-		}
-		
-		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+
 
 	
 		
