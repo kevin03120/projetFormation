@@ -21,6 +21,8 @@ import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class Article extends JFrame {
 
@@ -29,7 +31,7 @@ public class Article extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtQuantite;
 	private JTable tableArticles;
 	private JTextField textField_4;
 
@@ -176,15 +178,24 @@ public class Article extends JFrame {
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JSlider slider = new JSlider();
-		slider.setBounds(130, 67, 260, 23);
-		panel.add(slider);
+		JSlider sliderQuantite = new JSlider();
+		sliderQuantite.setPaintTicks(true);
+		sliderQuantite.setValue(0);
+		sliderQuantite.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				String valeur = Integer.toString(sliderQuantite.getValue());
+				txtQuantite.setText(valeur);
+			}
+		});
+		sliderQuantite.setBounds(130, 67, 260, 31);
+		panel.add(sliderQuantite);
 		
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(400, 67, 60, 20);
-		panel.add(textField_3);
-		textField_3.setColumns(10);
+		txtQuantite = new JTextField();
+		txtQuantite.setText("0");
+		txtQuantite.setBounds(400, 67, 60, 20);
+		panel.add(txtQuantite);
+		txtQuantite.setColumns(10);
 		
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));

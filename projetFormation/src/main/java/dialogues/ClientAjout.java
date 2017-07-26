@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Panel;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
@@ -13,6 +15,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ClientAjout extends JPanel {
 	private JTextField txtCode;
@@ -33,40 +39,48 @@ public class ClientAjout extends JPanel {
 		setBackground(new Color(175, 238, 238));
 		setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.textHighlight);
-		panel.setBounds(0, 0, 184, 545);
-		add(panel);
-		panel.setLayout(null);
+		JPanel panelMenuAjout = new JPanel();
+		panelMenuAjout.setBackground(SystemColor.textHighlight);
+		panelMenuAjout.setBounds(0, 0, 184, 545);
+		add(panelMenuAjout);
+		panelMenuAjout.setLayout(null);
 		
 		JLabel lblAjout = new JLabel("Ajout");
 		lblAjout.setIcon(new ImageIcon("C:\\images\\gestion\\client\\User-Add-64.png"));
 		lblAjout.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblAjout.setBounds(26, 11, 132, 64);
-		panel.add(lblAjout);
+		panelMenuAjout.add(lblAjout);
 		
 		JButton btnSauvegarder = new JButton("Sauvegarder");
 		btnSauvegarder.setIcon(new ImageIcon("C:\\images\\gestion\\Save-48.png"));
 		btnSauvegarder.setBounds(10, 86, 164, 52);
-		panel.add(btnSauvegarder);
+		panelMenuAjout.add(btnSauvegarder);
 		
 		JButton btnApercu = new JButton("Aper\u00E7u");
 		btnApercu.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
 		btnApercu.setBounds(10, 236, 164, 52);
-		panel.add(btnApercu);
+		panelMenuAjout.add(btnApercu);
 		
 		JButton btnImprimer = new JButton("Imprimer");
 		btnImprimer.setBounds(10, 299, 164, 23);
-		panel.add(btnImprimer);
+		panelMenuAjout.add(btnImprimer);
 		
 		JButton btnExport = new JButton("Export");
 		btnExport.setBounds(10, 333, 164, 23);
-		panel.add(btnExport);
+		panelMenuAjout.add(btnExport);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ClientAccueil clientAcc = new ClientAccueil();
+				removeAll();
+				clientAcc.setVisible(false);		
+			}
+		});
 		btnAnnuler.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
 		btnAnnuler.setBounds(10, 490, 164, 44);
-		panel.add(btnAnnuler);
+		panelMenuAjout.add(btnAnnuler);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(175, 238, 238));

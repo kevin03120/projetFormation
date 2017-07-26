@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
@@ -81,35 +85,43 @@ public class ClientAccueil extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 770, 584);
 		setTitle("Client");
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.textHighlight);
-		panel.setBounds(0, 0, 162, 547);
-		setContentPane(panel);
-		panel.setLayout(null);
+		JPanel panelClient = new JPanel();
+		panelClient.setBackground(SystemColor.textHighlight);
+		panelClient.setBounds(0, 0, 162, 547);
+		setContentPane(panelClient);
+		panelClient.setLayout(null);
 
 		JLabel lblClients = new JLabel("Clients");
 		lblClients.setIcon(new ImageIcon("C:\\images\\gestion\\client\\People-64-actif.png"));
 		lblClients.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblClients.setBounds(10, 11, 132, 69);
-		panel.add(lblClients);
+		panelClient.add(lblClients);
 
 		JButton btnRechercher = new JButton("Rechercher");
 		btnRechercher.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRechercher.setIcon(new ImageIcon("C:\\images\\gestion\\Search-48.png"));
 		btnRechercher.setBounds(10, 153, 141, 51);
-		panel.add(btnRechercher);
+		panelClient.add(btnRechercher);
 
 		JButton btnAjouter = new JButton(" Ajouter");
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClientAjout clientA = new ClientAjout();
+				setSize(820, 585);
+				panelClient.setVisible(false);
+				setContentPane(clientA);	
+			}
+		});
 		btnAjouter.setHorizontalAlignment(SwingConstants.LEFT);
 		btnAjouter.setBounds(10, 91, 141, 51);
-		panel.add(btnAjouter);
+		panelClient.add(btnAjouter);
 		btnAjouter.setIcon(new ImageIcon("C:\\images\\gestion\\Add-New-48.png"));
 
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setHorizontalAlignment(SwingConstants.LEFT);
 		btnModifier.setIcon(new ImageIcon("C:\\images\\gestion\\Data-Edit-48.png"));
 		btnModifier.setBounds(10, 215, 142, 51);
-		panel.add(btnModifier);
+		panelClient.add(btnModifier);
 
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addMouseListener(new MouseAdapter() {
@@ -127,20 +139,20 @@ public class ClientAccueil extends JFrame {
 		btnSupprimer.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
 		btnSupprimer.setBounds(10, 277, 142, 51);
-		panel.add(btnSupprimer);
+		panelClient.add(btnSupprimer);
 
 		JButton btnApercu = new JButton("Aper\u00E7u");
 		btnApercu.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
 		btnApercu.setBounds(10, 361, 141, 51);
-		panel.add(btnApercu);
+		panelClient.add(btnApercu);
 
 		JButton btnImprimer = new JButton("Imprimer");
 		btnImprimer.setBounds(10, 423, 141, 23);
-		panel.add(btnImprimer);
+		panelClient.add(btnImprimer);
 
 		JButton btnExport = new JButton("Export");
 		btnExport.setBounds(10, 457, 141, 23);
-		panel.add(btnExport);
+		panelClient.add(btnExport);
 
 		JButton btnAccueil = new JButton("Accueil");
 		btnAccueil.addMouseListener(new MouseAdapter() {
@@ -152,7 +164,7 @@ public class ClientAccueil extends JFrame {
 			}
 		});
 		btnAccueil.setBounds(10, 519, 142, 23);
-		panel.add(btnAccueil);
+		panelClient.add(btnAccueil);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(175, 238, 238));
