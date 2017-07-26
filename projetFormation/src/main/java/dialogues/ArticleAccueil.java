@@ -20,11 +20,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import src.main.java.controle.ArticleDaoMysql;
 import src.main.java.controle.ClientDaoMysql;
@@ -33,14 +37,16 @@ import src.main.java.controle.ModeleDynamiqueClient;
 import src.main.java.controle.UserDaoMysql;
 import src.main.java.singleton.GlobalConnection;
 import src.main.java.metier.Article;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ArticleAccueil extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCode;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtDesignation;
+	private JTextField txtCategorie;
+	private JTextField txtPrixUnitaire;
 	private JTextField txtQuantite;
 	private JTable tableArticles;
 	private JTextField txtRecherche;
@@ -65,12 +71,12 @@ public class ArticleAccueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ArticleAccueil(List<Article> lesBasesArticles) {
+	public ArticleAccueil(List<Article> listArticles) {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-		if (lesBasesArticles == null) {
+		if (listArticles == null) {
 			lesArticles = articleDao.getAllArticles();
 		} else {
-			lesArticles = lesBasesArticles;
+			lesArticles = listArticles;
 		}
 		
 		
@@ -182,20 +188,20 @@ public class ArticleAccueil extends JFrame {
 		panel.add(txtCode);
 		txtCode.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(130, 39, 626, 20);
-		panel.add(textField);
+		txtDesignation = new JTextField();
+		txtDesignation.setColumns(10);
+		txtDesignation.setBounds(130, 39, 626, 20);
+		panel.add(txtDesignation);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(590, 11, 166, 20);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		txtCategorie = new JTextField();
+		txtCategorie.setBounds(590, 11, 166, 20);
+		panel.add(txtCategorie);
+		txtCategorie.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(590, 67, 166, 20);
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+		txtPrixUnitaire = new JTextField();
+		txtPrixUnitaire.setBounds(590, 67, 166, 20);
+		panel.add(txtPrixUnitaire);
+		txtPrixUnitaire.setColumns(10);
 		
 		JSlider sliderQuantite = new JSlider();
 		sliderQuantite.setPaintTicks(true);
@@ -224,6 +230,10 @@ public class ArticleAccueil extends JFrame {
 		UI.deshabillerBouton(btnAjouter);
 		
 		JButton btnModifier = new JButton("Modifier");
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnModifier.setEnabled(false);
 		btnModifier.setIcon(new ImageIcon("C:\\images\\gestion\\Data-Edit-48.png"));
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -232,6 +242,20 @@ public class ArticleAccueil extends JFrame {
 		UI.deshabillerBouton(btnModifier);
 		
 		JButton btnSupprimer = new JButton("Supprimer");
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Article article = new Article();
+				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+				int idTab = tableArticles.getSelectedRow();
+				System.out.println(idTab);
+				int idArticle = lesArticles.get(idTab).getCode();
+				System.out.println(idArticle);
+				articleDao.deleteArticle(idArticle);
+				setVisible(false);
+				ArticleAccueil fenetreAccueil = new ArticleAccueil(null);
+				fenetreAccueil.setVisible(true);
+			}
+		});
 		btnSupprimer.setEnabled(false);
 		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -251,6 +275,22 @@ public class ArticleAccueil extends JFrame {
 		mainPanel.add(scrollPane);
 		
 		tableArticles = new JTable();
+		tableArticles.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Article article = new Article();
+				int idRow = tableArticles.getSelectedRow();
+				article = lesArticles.get(idRow);
+				txtCode.setText(Integer.toString(article.getCode()));
+				txtCategorie.setText(article.getCategorie());
+				txtDesignation.setText(article.getDesignation());
+				txtQuantite.setText(Integer.toString(article.getQuantite()));
+				txtPrixUnitaire.setText(Double.toString(article.getPrixUnitaire()));
+				sliderQuantite.setValue((article.getQuantite()));
+				btnModifier.setEnabled(true);
+				btnSupprimer.setEnabled(true);
+			}
+		});
 		tableArticles.setBackground(Color.WHITE);
 		tableArticles.setForeground(Color.BLACK);
 		tableArticles.setFillsViewportHeight(true);
@@ -264,6 +304,7 @@ public class ArticleAccueil extends JFrame {
 			}
 		));
 		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+		
 		scrollPane.setColumnHeaderView(tableArticles);
 		scrollPane.setViewportView(tableArticles);
 		
@@ -274,6 +315,11 @@ public class ArticleAccueil extends JFrame {
 		mainPanel.add(lblTrierPar);
 		
 		JRadioButton rdbtnCode = new JRadioButton("Code");
+		rdbtnCode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		rdbtnCode.setBounds(129, 568, 109, 23);
 		rdbtnCode.setBackground(new Color(255, 255, 153));
 		rdbtnCode.setFont(new Font("Tahoma", Font.BOLD, 12));

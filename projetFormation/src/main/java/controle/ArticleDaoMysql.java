@@ -40,17 +40,15 @@ public class ArticleDaoMysql {
 		}
 		return listArticles;
 	}
-
-	public Connection getConn() {
-		return conn;
-	}
-
-	public Statement getState() {
-		return state;
-	}
-
-	public ResultSet getRes() {
-		return res;
+	
+	public void deleteArticle(int idArticle) {
+		try {
+			state = conn.createStatement();
+			state.executeUpdate("DELETE FROM article WHERE id_article=" + idArticle);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
