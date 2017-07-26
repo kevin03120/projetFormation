@@ -22,10 +22,27 @@ public class ClientDaoMysql {
 		this.conn=connection;
 	}
 
-	public void deleteClient(String code){
-try {
+	public void deleteClient(String code) {
+		try {
 			state = conn.createStatement();
 			int a = state.executeUpdate("DELETE FROM client WHERE id_client = " + code);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addClient(Client c) {
+		try {
+			state = conn.createStatement();
+			String fidelite;
+			if(c.isFidelite()){
+				fidelite = "TRUE";
+			}else{
+				fidelite = "FALSE";
+			}
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate localDate = LocalDate.now();
+			int a = state.executeUpdate("INSERT INTO `client`(`id_client`, `nom_client`, `prenom_client`, `date_creation`, `fidelite`, `adresse`, `tel_fixe`, `tel_mobile`, `email`, `remarques`) VALUES ('"+c.getCode() +"','"+c.getNom()+"','" + c.getPrenom() + "','"+dtf.format(localDate)+"',"+ fidelite + ",'"+c.getAdresse() + "','" + c.getTel_fixe() + "','"+c.getTel_mobile() + "','" + c.getEmail() + "','" + c.getRemarques() + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

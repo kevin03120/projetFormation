@@ -75,6 +75,7 @@ public class ClientAccueil extends JFrame {
 	 * Create the frame.
 	 */
 	public ClientAccueil(List<Client> mesBasesClients) {
+		ClientAccueil a = this;
 		String db = "jdbc:mysql://localhost:3306/luna";
 		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
 		if (mesBasesClients == null) {
@@ -106,7 +107,7 @@ public class ClientAccueil extends JFrame {
 		JButton btnAjouter = new JButton(" Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClientAjout clientA = new ClientAjout();
+				ClientAjout clientA = new ClientAjout(a);
 				setSize(820, 585);
 				panelClient.setVisible(false);
 				setContentPane(clientA);	
