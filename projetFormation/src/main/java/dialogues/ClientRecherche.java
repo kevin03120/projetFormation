@@ -9,6 +9,14 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import src.main.java.controle.ClientDaoMysql;
+import src.main.java.controle.ModeleDynamiqueClient;
+import src.main.java.metier.Client;
+import src.main.java.singleton.GlobalConnection;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -16,6 +24,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientRecherche extends JPanel {
 	private JTextField txtCode;
@@ -28,11 +40,13 @@ public class ClientRecherche extends JPanel {
 	private JTextField txtEmail;
 	private JTextField txtRemarque;
 	private JTable tblClient;
-
+	private List<Client> mesClients;
 	/**
 	 * Create the panel.
 	 */
-	public ClientRecherche() {
+	public ClientRecherche(ClientAccueil a) {
+		String db = "jdbc:mysql://localhost:3306/luna";
+		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
 		setBackground(new Color(224, 255, 255));
 		setLayout(null);
 		
@@ -48,6 +62,24 @@ public class ClientRecherche extends JPanel {
 		panel.add(lblNewLabel);
 		
 		JButton btnRecherche = new JButton("Rechercher");
+		btnRecherche.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mesClients = new ArrayList<>();
+				if(!txtCode.getText().equals("")){
+					mesClients = clientDao.getClientParCode(txtCode.getText());
+				}else{
+					if(!txtNom.getText().equals("")){
+						mesClients = clientDao.getClientParNom(txtNom.getText());
+					}else{
+						if(!txtPrenom.getText().equals("")){
+							mesClients = clientDao.getClientParPrenom(txtPrenom.getText());
+						}
+					}
+				}
+				tblClient.setModel(new ModeleDynamiqueClient(mesClients));
+			}
+		});
 		btnRecherche.setBounds(10, 86, 164, 55);
 		panel.add(btnRecherche);
 		
@@ -64,6 +96,14 @@ public class ClientRecherche extends JPanel {
 		panel.add(btnExport);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				a.setVisible(false);
+				ClientAccueil clientA = new ClientAccueil(null);
+				clientA.setVisible(true);
+			}
+		});
 		btnAnnuler.setBounds(10, 491, 164, 55);
 		panel.add(btnAnnuler);
 		
@@ -170,6 +210,20 @@ public class ClientRecherche extends JPanel {
 		
 		tblClient = new JTable();
 		scrollPane.setViewportView(tblClient);
+		tblClient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				Client client = mesClients.get(tblClient.getSelectedRow());
+				txtCode.setText(client.getCode());
+				txtNom.setText(client.getNom());
+				txtPrenom.setText(client.getPrenom());
+				txtAdresse.setText(client.getAdresse());
+				txtEmail.setText(client.getEmail());
+				txtCreation.setText(client.getDate_creation().toString());
+				txtFixe.setText(client.getTel_fixe());
+				txtMobile.setText(client.getTel_mobile());
+				txtRemarque.setText(client.getRemarques());
+			}
+		});
 		
 		JLabel lblTri = new JLabel("Trier la liste par");
 		lblTri.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));

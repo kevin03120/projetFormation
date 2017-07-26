@@ -99,6 +99,14 @@ public class ClientAccueil extends JFrame {
 		panelClient.add(lblClients);
 
 		JButton btnRechercher = new JButton("Rechercher");
+		btnRechercher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClientRecherche clientR = new ClientRecherche(a);
+				setSize(820, 585);
+				panelClient.setVisible(false);
+				setContentPane(clientR);	
+			}
+		});
 		btnRechercher.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRechercher.setIcon(new ImageIcon("C:\\images\\gestion\\Search-48.png"));
 		btnRechercher.setBounds(10, 153, 141, 51);
