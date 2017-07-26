@@ -119,7 +119,7 @@ public class Accueil extends JFrame {
 		btnArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Article fenetreArticle = new Article();
+				ArticleAccueil fenetreArticle = new ArticleAccueil();
 				fenetreArticle.setVisible(true);
 			}
 		});

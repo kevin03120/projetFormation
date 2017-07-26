@@ -20,12 +20,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 
-public class Article extends JFrame {
+import src.main.java.controle.ArticleDaoMysql;
+import src.main.java.controle.ClientDaoMysql;
+import src.main.java.controle.ModeleDynamiqueArticle;
+import src.main.java.controle.UserDaoMysql;
+import src.main.java.singleton.GlobalConnection;
+import src.main.java.metier.Article;
+
+public class ArticleAccueil extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCode;
@@ -35,6 +43,7 @@ public class Article extends JFrame {
 	private JTextField txtQuantite;
 	private JTable tableArticles;
 	private JTextField txtRecherche;
+	private List<Article> lesArticles;
 
 	/**
 	 * Launch the application.
@@ -43,7 +52,7 @@ public class Article extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Article frame = new Article();
+					ArticleAccueil frame = new ArticleAccueil();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +64,7 @@ public class Article extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Article() {
+	public ArticleAccueil() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 968, 640);
 		contentPane = new JPanel();
@@ -233,32 +242,37 @@ public class Article extends JFrame {
 		mainPanel.add(scrollPane);
 		
 		tableArticles = new JTable();
+		tableArticles.setBackground(Color.WHITE);
+		tableArticles.setForeground(Color.BLACK);
 		tableArticles.setFillsViewportHeight(true);
+		tableArticles.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 13));
+		tableArticles.getTableHeader().setBackground(Color.LIGHT_GRAY);
 		tableArticles.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Code"
+				"Code", "Code cat\u00E9gorie", "D\u00E9signation", "Quantit\u00E9", "Prix unitaire"
 			}
 		));
 		scrollPane.setColumnHeaderView(tableArticles);
+		scrollPane.setViewportView(tableArticles);
 		
 		JLabel lblTrierPar = new JLabel("Trier par");
+		lblTrierPar.setBounds(10, 570, 100, 19);
 		lblTrierPar.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));
 		lblTrierPar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTrierPar.setBounds(10, 570, 100, 19);
 		mainPanel.add(lblTrierPar);
 		
 		JRadioButton rdbtnCode = new JRadioButton("Code");
+		rdbtnCode.setBounds(129, 568, 109, 23);
 		rdbtnCode.setBackground(new Color(255, 255, 153));
 		rdbtnCode.setFont(new Font("Tahoma", Font.BOLD, 12));
-		rdbtnCode.setBounds(129, 568, 109, 23);
 		mainPanel.add(rdbtnCode);
 		
 		JRadioButton rdbtnCategorie = new JRadioButton("Cat\u00E9gorie");
+		rdbtnCategorie.setBounds(240, 568, 109, 23);
 		rdbtnCategorie.setBackground(new Color(255, 255, 153));
 		rdbtnCategorie.setFont(new Font("Tahoma", Font.BOLD, 12));
-		rdbtnCategorie.setBounds(240, 568, 109, 23);
 		mainPanel.add(rdbtnCategorie);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -266,9 +280,9 @@ public class Article extends JFrame {
 		buttonGroup.add(rdbtnCategorie);
 		
 		JLabel lblRecherche = new JLabel("Recherche");
+		lblRecherche.setBounds(385, 567, 121, 25);
 		lblRecherche.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
 		lblRecherche.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblRecherche.setBounds(385, 567, 121, 25);
 		mainPanel.add(lblRecherche);
 		
 		txtRecherche = new JTextField();
@@ -276,6 +290,17 @@ public class Article extends JFrame {
 		mainPanel.add(txtRecherche);
 		txtRecherche.setColumns(10);
 		
+		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+		System.out.println(articleDao.getRes());
+		lesArticles = articleDao.getAllArticles();
+		System.out.println(lesArticles.size());
+		for(int i = 0; i< lesArticles.size(); i++) {
+			System.out.println(lesArticles.get(i).getCode());
+		}
+		
+		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+
+	
 		
 	}
 }

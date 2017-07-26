@@ -12,7 +12,7 @@ public class ModeleDynamiqueArticle  extends AbstractTableModel {
 	private static final String[] TITRES = { "Code", "Catégorie", "Désignation", "Quantité", "Prix Unitaire" }; 
 	
 	public ModeleDynamiqueArticle(List<Article> listArticles) {
-		lesArticles = new ArrayList<>(listArticles);
+		setArticles(listArticles);
 	}
 
 	public List<Article> getArticles() {

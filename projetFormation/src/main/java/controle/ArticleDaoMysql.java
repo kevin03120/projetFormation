@@ -1,12 +1,12 @@
 package src.main.java.controle;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Connection;
 
 import src.main.java.metier.Article;
 
@@ -15,8 +15,8 @@ public class ArticleDaoMysql {
 	Statement state = null;
 	ResultSet res = null;
 	
-	public ArticleDaoMysql(Connection conn) {
-		this.conn = conn;
+	public ArticleDaoMysql(Connection connection) {
+		this.conn = connection;
 	}
 	
 	public List<Article> getAllArticles() {
@@ -37,6 +37,18 @@ public class ArticleDaoMysql {
 			e.printStackTrace();
 		}
 		return listArticles;
+	}
+
+	public Connection getConn() {
+		return conn;
+	}
+
+	public Statement getState() {
+		return state;
+	}
+
+	public ResultSet getRes() {
+		return res;
 	}
 	
 	
