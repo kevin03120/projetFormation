@@ -2,7 +2,7 @@ package src.main.java.metier;
 
 public class Article {
 	private String code;
-	private String categorie;
+	private int categorie;
 	private String designation;
 	private int quantite;
 	private double prixUnitaire;
@@ -15,10 +15,10 @@ public class Article {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getCategorie() {
+	public int getCategorie() {
 		return categorie;
 	}
-	public void setCategorie(String categorie) {
+	public void setCategorie(int categorie) {
 		this.categorie = categorie;
 	}
 	public String getDesignation() {

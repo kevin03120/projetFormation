@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.table.DefaultTableModel;
 
 public class Article extends JFrame {
 
@@ -33,7 +34,7 @@ public class Article extends JFrame {
 	private JTextField textField_2;
 	private JTextField txtQuantite;
 	private JTable tableArticles;
-	private JTextField textField_4;
+	private JTextField txtRecherche;
 
 	/**
 	 * Launch the application.
@@ -232,6 +233,14 @@ public class Article extends JFrame {
 		mainPanel.add(scrollPane);
 		
 		tableArticles = new JTable();
+		tableArticles.setFillsViewportHeight(true);
+		tableArticles.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Code"
+			}
+		));
 		scrollPane.setColumnHeaderView(tableArticles);
 		
 		JLabel lblTrierPar = new JLabel("Trier par");
@@ -262,10 +271,10 @@ public class Article extends JFrame {
 		lblRecherche.setBounds(385, 567, 121, 25);
 		mainPanel.add(lblRecherche);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(534, 570, 227, 20);
-		mainPanel.add(textField_4);
-		textField_4.setColumns(10);
+		txtRecherche = new JTextField();
+		txtRecherche.setBounds(534, 570, 227, 20);
+		mainPanel.add(txtRecherche);
+		txtRecherche.setColumns(10);
 		
 		
 	}

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.mysql.jdbc.Connection;
 
-import src.main.java.dialogues.Article;
+import src.main.java.metier.Article;
 
 public class ArticleDaoMysql {
 	Connection conn = null;
@@ -27,7 +27,11 @@ public class ArticleDaoMysql {
 			res = state.executeQuery("SELECT * FROM Article");
 			
 			while(res.next()) {
-			
+				article.setCode(res.getString("code"));
+				article.setCategorie(res.getInt("id_categorie"));
+				article.setDesignation(res.getString("designation"));
+				article.setQuantite(res.getInt("quantite"));
+				article.setPrixUnitaire(res.getDouble("prix"));		
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

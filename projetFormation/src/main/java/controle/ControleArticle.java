@@ -1,5 +1,5 @@
 package src.main.java.controle;
 
-public class ModeleClient {
+public class ControleArticle {
 
 }
