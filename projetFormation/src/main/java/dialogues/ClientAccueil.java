@@ -62,8 +62,8 @@ public class ClientAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientAccueil frame = new ClientAccueil();
-					frame.setVisible(true);
+					/*ClientAccueil frame = new ClientAccueil(null);
+					frame.setVisible(true);*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -74,7 +74,15 @@ public class ClientAccueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientAccueil() {
+	public ClientAccueil(List<Client> mesBasesClients) {
+		ClientAccueil a = this;
+		String db = "jdbc:mysql://localhost:3306/luna";
+		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
+		if (mesBasesClients == null) {
+			mesClients = clientDao.getAllClient();
+		}else{
+			mesClients = mesBasesClients;
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 770, 584);
 		setTitle("Client");
@@ -99,7 +107,7 @@ public class ClientAccueil extends JFrame {
 		JButton btnAjouter = new JButton(" Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClientAjout clientA = new ClientAjout();
+				ClientAjout clientA = new ClientAjout(a);
 				setSize(820, 585);
 				panelClient.setVisible(false);
 				setContentPane(clientA);	
@@ -117,6 +125,18 @@ public class ClientAccueil extends JFrame {
 		panelClient.add(btnModifier);
 
 		JButton btnSupprimer = new JButton("Supprimer");
+		btnSupprimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (tblClient.getSelectedRow() != -1) {
+					Client client = mesClients.get(tblClient.getSelectedRow());
+					clientDao.deleteClient(client.getCode());
+					setVisible(false);
+					ClientAccueil clientA = new ClientAccueil(null);
+					clientA.setVisible(true);
+				}
+			}
+		});
 		btnSupprimer.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
 		btnSupprimer.setBounds(10, 277, 142, 51);
@@ -270,15 +290,11 @@ public class ClientAccueil extends JFrame {
 		panel_2.add(lblTrierLaListe);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setEnabled(false);
 		comboBox.setModel(new DefaultComboBoxModel(
 				new String[] { "Ordre alphabetique des noms", "Ordre alphabetique des prenoms" }));
 		comboBox.setBounds(229, 253, 224, 20);
 		panel_2.add(comboBox);
 
-		String db = "jdbc:mysql://localhost:3306/luna";
-		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
-		mesClients = clientDao.getAllClient();
 		tblClient.setModel(new ModeleDynamiqueClient(mesClients));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -289,33 +305,30 @@ public class ClientAccueil extends JFrame {
 				JComboBox comboBox = (JComboBox) event.getSource();
 
 				if (comboBox.getSelectedIndex() == 0) {
-					ModeleDynamiqueClient modeleAphabetiqueNom = new ModeleDynamiqueClient(TriOrdreAlphabetiqueNom());
-					tblClient.setModel(modeleAphabetiqueNom);
+					TriOrdreAlphabetiqueNom();
+
 				} else {
-					ModeleDynamiqueClient modeleAphabetiquePrenom = new ModeleDynamiqueClient(
-							TriOrdreAlphabetiquePrenom());
-					tblClient.setModel(modeleAphabetiquePrenom);
+					TriOrdreAlphabetiquePrenom();
 				}
 			}
 		});
 		tblClient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
-					Client client = mesClients.get(tblClient.getSelectedRow());
-					txtCode.setText(client.getCode());
-					txtNom.setText(client.getNom());
-					txtPrenom.setText(client.getPrenom());
-					txtAdresse.setText(client.getAdresse());
-					txtEmail.setText(client.getEmail());
-					txtCreation.setText(client.getDate_creation().toString());
-					txtFixe.setText(client.getTel_fixe());
-					txtMobile.setText(client.getTel_mobile());
-					txtRemarques.setText(client.getRemarques());
-
+				Client client = mesClients.get(tblClient.getSelectedRow());
+				txtCode.setText(client.getCode());
+				txtNom.setText(client.getNom());
+				txtPrenom.setText(client.getPrenom());
+				txtAdresse.setText(client.getAdresse());
+				txtEmail.setText(client.getEmail());
+				txtCreation.setText(client.getDate_creation().toString());
+				txtFixe.setText(client.getTel_fixe());
+				txtMobile.setText(client.getTel_mobile());
+				txtRemarques.setText(client.getRemarques());
 			}
 		});
 	}
 
-	public List<Client> TriOrdreAlphabetiqueNom() {
+	public void TriOrdreAlphabetiqueNom() {
 		List<String> nomClient = new ArrayList<String>();
 		List<Client> nouvelleList = new ArrayList<Client>();
 		for (Client client : mesClients) {
@@ -325,15 +338,25 @@ public class ClientAccueil extends JFrame {
 		for (String nom : nomClient) {
 			for (Client client : mesClients) {
 				if (client.getNom().equals(nom)) {
-					nouvelleList.add(client);
+					boolean isExist = false;
+					for (Client monClient : nouvelleList) {
+						if(client.getCode().equals(monClient.getCode())){
+							isExist =true;
+						}
+					}
+					if(!isExist){
+						nouvelleList.add(client);
+					}
 				}
 			}
 		}
 		mesClients = nouvelleList;
-		return nouvelleList;
+		ClientAccueil clientA = new ClientAccueil(nouvelleList);
+		setVisible(false);
+		clientA.setVisible(true);
 	}
 
-	public List<Client> TriOrdreAlphabetiquePrenom() {
+	public void TriOrdreAlphabetiquePrenom() {
 		List<String> prenomClient = new ArrayList<String>();
 		List<Client> nouvelleList = new ArrayList<Client>();
 		for (Client client : mesClients) {
@@ -343,12 +366,22 @@ public class ClientAccueil extends JFrame {
 		for (String prenom : prenomClient) {
 			for (Client client : mesClients) {
 				if (client.getPrenom().equals(prenom)) {
-					nouvelleList.add(client);
+					boolean isExist = false;
+					for (Client monClient : nouvelleList) {
+						if(client.getCode().equals(monClient.getCode())){
+							isExist =true;
+						}
+					}
+					if(!isExist){
+						nouvelleList.add(client);
+					}
 				}
 			}
 		}
 		mesClients = nouvelleList;
-		return nouvelleList;
+		ClientAccueil clientA = new ClientAccueil(nouvelleList);
+		setVisible(false);
+		clientA.setVisible(true);
 	}
 
 }

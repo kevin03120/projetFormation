@@ -134,7 +134,7 @@ public class Accueil extends JFrame {
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ClientAccueil fenetreClient = new ClientAccueil();
+				ClientAccueil fenetreClient = new ClientAccueil(null);
 				fenetreClient.setVisible(true);
 			}
 		});
