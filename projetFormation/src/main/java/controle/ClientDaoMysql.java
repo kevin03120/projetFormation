@@ -22,6 +22,15 @@ public class ClientDaoMysql {
 		this.conn=connection;
 	}
 
+	public void deleteClient(String code){
+try {
+			state = conn.createStatement();
+			int a = state.executeUpdate("DELETE FROM client WHERE id_client = " + code);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Client> getAllClient() {
 		Client client = null;
 		List<Client> clients = new ArrayList<Client>();
