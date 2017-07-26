@@ -28,6 +28,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import src.main.java.controle.ClientDaoMysql;
@@ -257,13 +260,8 @@ public class ClientAccueil extends JFrame {
 		panel_2.add(scrollPane);
 
 		tblClient = new JTable();
-		tblClient.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Code", "Nom", "Pr\u00E9nom", "Carte de fid\u00E9lit\u00E9", "Date de cr\u00E9ation"
-			}
-		));
+		tblClient.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Code", "Nom", "Pr\u00E9nom", "Carte de fid\u00E9lit\u00E9", "Date de cr\u00E9ation" }));
 		scrollPane.setViewportView(tblClient);
 
 		JLabel lblTrierLaListe = new JLabel("Trier la liste par");
@@ -272,64 +270,84 @@ public class ClientAccueil extends JFrame {
 		panel_2.add(lblTrierLaListe);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Ordre alphabetique des noms", "Ordre alphabetique des prenoms"}));
+		comboBox.setEnabled(false);
+		comboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "Ordre alphabetique des noms", "Ordre alphabetique des prenoms" }));
 		comboBox.setBounds(229, 253, 224, 20);
 		panel_2.add(comboBox);
-		
+
 		String db = "jdbc:mysql://localhost:3306/luna";
 		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
 		mesClients = clientDao.getAllClient();
 		tblClient.setModel(new ModeleDynamiqueClient(mesClients));
 		comboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                //
-                // Get the source of the component, which is our combo
-                // box.
-                //
-                JComboBox comboBox = (JComboBox) event.getSource();
+			public void actionPerformed(ActionEvent event) {
+				//
+				// Get the source of the component, which is our combo
+				// box.
+				//
+				JComboBox comboBox = (JComboBox) event.getSource();
 
-                if(comboBox.getSelectedIndex()==0){
-                	ModeleDynamiqueClient modeleAphabetiqueNom = new ModeleDynamiqueClient(TriOrdreAlphabetiqueNom());
-                	tblClient.setModel(modeleAphabetiqueNom);
-                }else{
-                	ModeleDynamiqueClient modeleAphabetiquePrenom = new ModeleDynamiqueClient(TriOrdreAlphabetiquePrenom());
-                	tblClient.setModel(modeleAphabetiquePrenom);
-                }
-            }
-        });
+				if (comboBox.getSelectedIndex() == 0) {
+					ModeleDynamiqueClient modeleAphabetiqueNom = new ModeleDynamiqueClient(TriOrdreAlphabetiqueNom());
+					tblClient.setModel(modeleAphabetiqueNom);
+				} else {
+					ModeleDynamiqueClient modeleAphabetiquePrenom = new ModeleDynamiqueClient(
+							TriOrdreAlphabetiquePrenom());
+					tblClient.setModel(modeleAphabetiquePrenom);
+				}
+			}
+		});
+		tblClient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+					Client client = mesClients.get(tblClient.getSelectedRow());
+					txtCode.setText(client.getCode());
+					txtNom.setText(client.getNom());
+					txtPrenom.setText(client.getPrenom());
+					txtAdresse.setText(client.getAdresse());
+					txtEmail.setText(client.getEmail());
+					txtCreation.setText(client.getDate_creation().toString());
+					txtFixe.setText(client.getTel_fixe());
+					txtMobile.setText(client.getTel_mobile());
+					txtRemarques.setText(client.getRemarques());
+
+			}
+		});
 	}
-	
-	public List<Client> TriOrdreAlphabetiqueNom(){
+
+	public List<Client> TriOrdreAlphabetiqueNom() {
 		List<String> nomClient = new ArrayList<String>();
 		List<Client> nouvelleList = new ArrayList<Client>();
 		for (Client client : mesClients) {
 			nomClient.add(client.getNom());
 		}
 		Collections.sort(nomClient);
-		for(String nom : nomClient){
-			for(Client client : mesClients){
-				if(client.getNom().equals(nom)){
+		for (String nom : nomClient) {
+			for (Client client : mesClients) {
+				if (client.getNom().equals(nom)) {
 					nouvelleList.add(client);
 				}
 			}
 		}
+		mesClients = nouvelleList;
 		return nouvelleList;
 	}
-	
-	public List<Client> TriOrdreAlphabetiquePrenom(){
+
+	public List<Client> TriOrdreAlphabetiquePrenom() {
 		List<String> prenomClient = new ArrayList<String>();
 		List<Client> nouvelleList = new ArrayList<Client>();
 		for (Client client : mesClients) {
 			prenomClient.add(client.getPrenom());
 		}
 		Collections.sort(prenomClient);
-		for(String prenom : prenomClient){
-			for(Client client : mesClients){
-				if(client.getPrenom().equals(prenom)){
+		for (String prenom : prenomClient) {
+			for (Client client : mesClients) {
+				if (client.getPrenom().equals(prenom)) {
 					nouvelleList.add(client);
 				}
 			}
 		}
+		mesClients = nouvelleList;
 		return nouvelleList;
 	}
 

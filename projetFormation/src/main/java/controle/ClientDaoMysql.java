@@ -48,6 +48,7 @@ public class ClientDaoMysql {
 				client.setTel_fixe(result.getString("tel_fixe"));
 				client.setTel_mobile(result.getString("tel_mobile"));
 				client.setEmail(result.getString("email"));
+				client.setRemarques(result.getString("remarques"));
 				clients.add(client);
 			}
 
