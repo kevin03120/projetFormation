@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.Toolkit;
 
 public class Article extends JFrame {
 
@@ -55,6 +56,7 @@ public class Article extends JFrame {
 	 * Create the frame.
 	 */
 	public Article() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Article.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 968, 640);
 		contentPane = new JPanel();
@@ -70,7 +72,7 @@ public class Article extends JFrame {
 		
 		JLabel lblArticles = new JLabel("Articles\r\n");
 		lblArticles.setBounds(10, 11, 132, 69);
-		lblArticles.setIcon(new ImageIcon("C:\\images\\gestion\\article\\Product-64-actif.png"));
+		lblArticles.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/article/Product-64-actif.png")));
 		lblArticles.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuPanel.add(lblArticles);
 		
@@ -86,14 +88,14 @@ public class Article extends JFrame {
 		btnAccueil.setBackground(new Color(51, 204, 0));
 		btnAccueil.setForeground(new Color(255, 255, 255));
 		btnAccueil.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnAccueil.setIcon(new ImageIcon("C:\\images\\gestion\\Home-48.png"));
+		btnAccueil.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Home-48.png")));
 		menuPanel.add(btnAccueil);
 		UI.deshabillerBouton(btnAccueil);
 		
 		JButton btnApercu = new JButton("Aper\u00E7u");
 		btnApercu.setForeground(new Color(255, 255, 255));
 		btnApercu.setBackground(new Color(51, 204, 0));
-		btnApercu.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
+		btnApercu.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Preview-48.png")));
 		btnApercu.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnApercu.setBounds(10, 218, 140, 30);
 		menuPanel.add(btnApercu);
@@ -102,7 +104,7 @@ public class Article extends JFrame {
 		JButton btnImprimer = new JButton("Imprimer");
 		btnImprimer.setForeground(new Color(255, 255, 255));
 		btnImprimer.setBackground(new Color(51, 204, 0));
-		btnImprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Printer-48.png"));
+		btnImprimer.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Printer-48.png")));
 		btnImprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnImprimer.setBounds(10, 265, 140, 30);
 		menuPanel.add(btnImprimer);
@@ -111,7 +113,7 @@ public class Article extends JFrame {
 		JButton btnExporter = new JButton("Export");
 		btnExporter.setForeground(new Color(255, 255, 255));
 		btnExporter.setBackground(new Color(51, 204, 0));
-		btnExporter.setIcon(new ImageIcon("C:\\images\\gestion\\Data-Export-48.png"));
+		btnExporter.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Data-Export-48.png")));
 		btnExporter.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExporter.setBounds(10, 311, 140, 30);
 		menuPanel.add(btnExporter);
@@ -199,14 +201,14 @@ public class Article extends JFrame {
 		
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnAjouter.setIcon(new ImageIcon("C:\\images\\gestion\\Add-New-48.png"));
+		btnAjouter.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Add-New-48.png")));
 		btnAjouter.setBounds(10, 102, 150, 50);
 		panel.add(btnAjouter);
 		UI.deshabillerBouton(btnAjouter);
 		
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setEnabled(false);
-		btnModifier.setIcon(new ImageIcon("C:\\images\\gestion\\Data-Edit-48.png"));
+		btnModifier.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Data-Edit-48.png")));
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnModifier.setBounds(199, 101, 150, 50);
 		panel.add(btnModifier);
@@ -214,14 +216,14 @@ public class Article extends JFrame {
 		
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.setEnabled(false);
-		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
+		btnSupprimer.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSupprimer.setBounds(410, 102, 150, 50);
 		panel.add(btnSupprimer);
 		UI.deshabillerBouton(btnSupprimer);
 		
 		JButton btnEffacer = new JButton("Effacer");
-		btnEffacer.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
+		btnEffacer.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Cancel-48.png")));
 		btnEffacer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnEffacer.setBounds(606, 102, 150, 50);
 		panel.add(btnEffacer);
@@ -235,7 +237,7 @@ public class Article extends JFrame {
 		scrollPane.setColumnHeaderView(tableArticles);
 		
 		JLabel lblTrierPar = new JLabel("Trier par");
-		lblTrierPar.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));
+		lblTrierPar.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
 		lblTrierPar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTrierPar.setBounds(10, 570, 100, 19);
 		mainPanel.add(lblTrierPar);
@@ -257,7 +259,7 @@ public class Article extends JFrame {
 		buttonGroup.add(rdbtnCategorie);
 		
 		JLabel lblRecherche = new JLabel("Recherche");
-		lblRecherche.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
+		lblRecherche.setIcon(new ImageIcon(Article.class.getResource("/target/images/gestion/Preview-48.png")));
 		lblRecherche.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblRecherche.setBounds(385, 567, 121, 25);
 		mainPanel.add(lblRecherche);

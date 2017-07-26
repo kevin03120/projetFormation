@@ -59,7 +59,7 @@ public class ClientAjout extends JPanel {
 		panelMenuAjout.setLayout(null);
 
 		JLabel lblAjout = new JLabel("Ajout");
-		lblAjout.setIcon(new ImageIcon("C:\\images\\gestion\\client\\User-Add-64.png"));
+		lblAjout.setIcon(new ImageIcon(ClientAjout.class.getResource("/target/images/gestion/client/User-Add-64.png")));
 		lblAjout.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblAjout.setBounds(26, 11, 132, 64);
 		panelMenuAjout.add(lblAjout);
@@ -99,12 +99,12 @@ public class ClientAjout extends JPanel {
 				}
 			}
 		});
-		btnSauvegarder.setIcon(new ImageIcon("C:\\images\\gestion\\Save-48.png"));
+		btnSauvegarder.setIcon(new ImageIcon(ClientAjout.class.getResource("/target/images/gestion/Save-48.png")));
 		btnSauvegarder.setBounds(10, 86, 164, 52);
 		panelMenuAjout.add(btnSauvegarder);
 
 		JButton btnApercu = new JButton("Aper\u00E7u");
-		btnApercu.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
+		btnApercu.setIcon(new ImageIcon(ClientAjout.class.getResource("/target/images/gestion/Preview-48.png")));
 		btnApercu.setBounds(10, 236, 164, 52);
 		panelMenuAjout.add(btnApercu);
 
@@ -125,7 +125,7 @@ public class ClientAjout extends JPanel {
 				acc.setVisible(true);
 			}
 		});
-		btnAnnuler.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
+		btnAnnuler.setIcon(new ImageIcon(ClientAjout.class.getResource("/target/images/gestion/Cancel-48.png")));
 		btnAnnuler.setBounds(10, 490, 164, 44);
 		panelMenuAjout.add(btnAnnuler);
 

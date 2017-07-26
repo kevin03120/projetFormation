@@ -57,7 +57,7 @@ public class ClientRecherche extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\images\\gestion\\client\\User-Find-64.png"));
+		lblNewLabel.setIcon(new ImageIcon(ClientRecherche.class.getResource("/target/images/gestion/client/User-Find-64.png")));
 		lblNewLabel.setBounds(10, 11, 64, 64);
 		panel.add(lblNewLabel);
 		
@@ -226,7 +226,7 @@ public class ClientRecherche extends JPanel {
 		});
 		
 		JLabel lblTri = new JLabel("Trier la liste par");
-		lblTri.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));
+		lblTri.setIcon(new ImageIcon(ClientRecherche.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
 		lblTri.setBounds(194, 531, 110, 14);
 		add(lblTri);
 		
