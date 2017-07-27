@@ -1,10 +1,10 @@
-package src.main.java.controle;
+package src.main.java.controle.modele;
 
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import src.main.java.metier.Client;
+import src.main.java.entite.Client;
 
 public class ModeleDynamiqueClient extends AbstractTableModel {
 

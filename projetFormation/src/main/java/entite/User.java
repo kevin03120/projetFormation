@@ -1,4 +1,4 @@
-package src.main.java.metier;
+package src.main.java.entite;
 
 public class User {
 

@@ -1,4 +1,4 @@
-package src.main.java.controle;
+package src.main.java.entite.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,8 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import src.main.java.metier.Article;
+import src.main.java.entite.Article;
 
 public class ArticleDaoMysql {
 	Connection conn = null;

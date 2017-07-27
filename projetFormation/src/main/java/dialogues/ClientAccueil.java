@@ -35,11 +35,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import src.main.java.controle.ClientDaoMysql;
-import src.main.java.controle.ModeleDynamiqueClient;
-import src.main.java.controle.UserDaoMysql;
-import src.main.java.metier.Client;
-import src.main.java.singleton.GlobalConnection;
+import src.main.java.controle.ControleClient;
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.controle.modele.ModeleDynamiqueClient;
+import src.main.java.entite.Client;
+import src.main.java.entite.dao.ClientDaoMysql;
+import src.main.java.entite.dao.UserDaoMysql;
+
 import javax.swing.DefaultComboBoxModel;
 
 public class ClientAccueil extends JFrame {
@@ -54,7 +56,7 @@ public class ClientAccueil extends JFrame {
 	private JTextField txtRemarques;
 	private JTable tblClient;
 	private List<Client> mesClients;
-
+	private ControleClient controleClient;
 	private JPanel contentPane;
 
 	/**
@@ -64,8 +66,8 @@ public class ClientAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					 ClientAccueil frame = new ClientAccueil(null);
-					 frame.setVisible(true);
+					ClientAccueil frame = new ClientAccueil(null);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,15 +79,11 @@ public class ClientAccueil extends JFrame {
 	 * Create the frame.
 	 */
 	public ClientAccueil(List<Client> mesBasesClients) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ClientAccueil.class.getResource("/target/images/Moon-32.png")));
+		controleClient = new ControleClient();
+		setIconImage(
+				Toolkit.getDefaultToolkit().getImage(ClientAccueil.class.getResource("/target/images/Moon-32.png")));
 		ClientAccueil a = this;
-		String db = "jdbc:mysql://localhost:3306/luna";
-		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
-		if (mesBasesClients == null) {
-			mesClients = clientDao.getAllClient();
-		} else {
-			mesClients = mesBasesClients;
-		}
+		mesClients = controleClient.getMesClientsDynamique(mesBasesClients);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 770, 584);
 		setTitle("Client");
@@ -96,7 +94,8 @@ public class ClientAccueil extends JFrame {
 		panelClient.setLayout(null);
 
 		JLabel lblClients = new JLabel("Clients");
-		lblClients.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/client/User-Modify-64.png")));
+		lblClients.setIcon(
+				new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/client/User-Modify-64.png")));
 		lblClients.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblClients.setBounds(10, 11, 132, 69);
 		panelClient.add(lblClients);
@@ -145,8 +144,7 @@ public class ClientAccueil extends JFrame {
 						"Demande de validation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.OK_OPTION) {
 					if (tblClient.getSelectedRow() != -1) {
-						Client client = mesClients.get(tblClient.getSelectedRow());
-						clientDao.deleteClient(client.getCode());
+						controleClient.deleteClient(tblClient.getSelectedRow(), mesClients);
 						setVisible(false);
 						ClientAccueil clientA = new ClientAccueil(null);
 						clientA.setVisible(true);
@@ -157,7 +155,8 @@ public class ClientAccueil extends JFrame {
 			}
 		});
 		btnSupprimer.setHorizontalAlignment(SwingConstants.LEFT);
-		btnSupprimer.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
+		btnSupprimer
+				.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
 		btnSupprimer.setBounds(10, 277, 142, 51);
 		panelClient.add(btnSupprimer);
 
@@ -292,9 +291,10 @@ public class ClientAccueil extends JFrame {
 		tblClient.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Code", "Nom", "Pr\u00E9nom", "Carte de fid\u00E9lit\u00E9", "Date de cr\u00E9ation" }));
 		scrollPane.setViewportView(tblClient);
-		
+
 		JLabel lblTrierLaListe = new JLabel("Trier la liste par");
-		lblTrierLaListe.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
+		lblTrierLaListe.setIcon(
+				new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
 		lblTrierLaListe.setBounds(23, 256, 196, 14);
 		panel_2.add(lblTrierLaListe);
 
@@ -307,17 +307,17 @@ public class ClientAccueil extends JFrame {
 		tblClient.setModel(new ModeleDynamiqueClient(mesClients));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				//
-				// Get the source of the component, which is our combo
-				// box.
-				//
 				JComboBox comboBox = (JComboBox) event.getSource();
 
 				if (comboBox.getSelectedIndex() == 0) {
-					TriOrdreAlphabetiqueNom();
+					ClientAccueil clientA = new ClientAccueil(controleClient.TriOrdreAlphabetiqueNom(mesClients));
+					setVisible(false);
+					clientA.setVisible(true);
 
 				} else {
-					TriOrdreAlphabetiquePrenom();
+					ClientAccueil clientA = new ClientAccueil(controleClient.TriOrdreAlphabetiquePrenom(mesClients));
+					setVisible(false);
+					clientA.setVisible(true);
 				}
 			}
 		});
@@ -335,62 +335,6 @@ public class ClientAccueil extends JFrame {
 				txtRemarques.setText(client.getRemarques());
 			}
 		});
-	}
-
-	public void TriOrdreAlphabetiqueNom() {
-		List<String> nomClient = new ArrayList<String>();
-		List<Client> nouvelleList = new ArrayList<Client>();
-		for (Client client : mesClients) {
-			nomClient.add(client.getNom());
-		}
-		Collections.sort(nomClient);
-		for (String nom : nomClient) {
-			for (Client client : mesClients) {
-				if (client.getNom().equals(nom)) {
-					boolean isExist = false;
-					for (Client monClient : nouvelleList) {
-						if (client.getCode().equals(monClient.getCode())) {
-							isExist = true;
-						}
-					}
-					if (!isExist) {
-						nouvelleList.add(client);
-					}
-				}
-			}
-		}
-		mesClients = nouvelleList;
-		ClientAccueil clientA = new ClientAccueil(nouvelleList);
-		setVisible(false);
-		clientA.setVisible(true);
-	}
-
-	public void TriOrdreAlphabetiquePrenom() {
-		List<String> prenomClient = new ArrayList<String>();
-		List<Client> nouvelleList = new ArrayList<Client>();
-		for (Client client : mesClients) {
-			prenomClient.add(client.getPrenom());
-		}
-		Collections.sort(prenomClient);
-		for (String prenom : prenomClient) {
-			for (Client client : mesClients) {
-				if (client.getPrenom().equals(prenom)) {
-					boolean isExist = false;
-					for (Client monClient : nouvelleList) {
-						if (client.getCode().equals(monClient.getCode())) {
-							isExist = true;
-						}
-					}
-					if (!isExist) {
-						nouvelleList.add(client);
-					}
-				}
-			}
-		}
-		mesClients = nouvelleList;
-		ClientAccueil clientA = new ClientAccueil(nouvelleList);
-		setVisible(false);
-		clientA.setVisible(true);
 	}
 
 }

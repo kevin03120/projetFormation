@@ -30,13 +30,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import src.main.java.controle.ArticleDaoMysql;
-import src.main.java.controle.ClientDaoMysql;
-import src.main.java.controle.ModeleDynamiqueArticle;
-import src.main.java.controle.ModeleDynamiqueClient;
-import src.main.java.controle.UserDaoMysql;
-import src.main.java.singleton.GlobalConnection;
-import src.main.java.metier.Article;
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.controle.modele.ModeleDynamiqueArticle;
+import src.main.java.controle.modele.ModeleDynamiqueClient;
+import src.main.java.entite.Article;
+import src.main.java.entite.dao.ArticleDaoMysql;
+import src.main.java.entite.dao.ClientDaoMysql;
+import src.main.java.entite.dao.UserDaoMysql;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
