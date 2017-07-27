@@ -86,6 +86,28 @@ public class ArticleDaoMysql {
 		
 		return lesCategories;
 	}
+	public void modifierArticle(Article article) {
+		int idCat = 0;
+		try {
+			state = conn.createStatement();
+			String nomCat = article.getCategorie();
+			res = state.executeQuery("SELECT id_categorie FROM categorie WHERE nom_categorie = '" + nomCat+"'");
+			res.next();
+			idCat = res.getInt("id_categorie");
+				
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			state = conn.createStatement();
+			state.executeUpdate("UPDATE article SET id_article=" + article.getCode() + ", designation='" + article.getDesignation() 
+					+ "', quantite=" + article.getQuantite() + ", prix=" + article.getPrixUnitaire() + ", id_categorie=" + idCat + " "
+							+ "WHERE id_article=" + article.getCode() + ";");
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
 	
 	
 }

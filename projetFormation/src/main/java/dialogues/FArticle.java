@@ -254,6 +254,17 @@ public class FArticle extends JFrame {
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Article article = new Article();
+				article.setCode(new Integer(txtCode.getText()));
+				article.setDesignation(txtDesignation.getText());
+				article.setCategorie(cBoxCategorie.getSelectedItem().toString());
+				article.setQuantite(new Integer(txtQuantite.getText()));
+				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
+				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+				articleDao.modifierArticle(article);
+				FArticle fenetreAccueil = new FArticle(null);
+				setVisible(false);
+				fenetreAccueil.setVisible(true);
 			}
 		});
 		btnModifier.setEnabled(false);
