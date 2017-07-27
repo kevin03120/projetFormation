@@ -60,7 +60,7 @@ public class FCommande extends JFrame {
 	private JTable tblCommande;
 	private ControleCommande controleCommande;
 	private ControleClient controleClient;
-	private ArticleDaoMysql articleDao;
+	private ControleArticle articleDao;
 	private JComboBox comboBoxArticle;
 	private double total;
 
@@ -86,7 +86,7 @@ public class FCommande extends JFrame {
 	public FCommande() {
 		total = 0.00;
 		List<CommandeArticle> listCommande = new ArrayList<>();
-		articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+		articleDao = new ControleArticle();
 		controleClient = new ControleClient();
 		controleCommande = new ControleCommande();
 		controleCommande = new ControleCommande();
@@ -301,7 +301,7 @@ public class FCommande extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				CommandeArticle ca = new CommandeArticle();
-				Article a = articleDao.getAllArticles().get(comboBoxArticle.getSelectedIndex());
+				Article a = articleDao.listerArticles().get(comboBoxArticle.getSelectedIndex());
 				ca.setCodeArticle(a.getCode());
 				ca.setCodeCategorie(a.getCategorie());
 				ca.setDesignation(a.getDesignation());
@@ -362,14 +362,14 @@ public class FCommande extends JFrame {
 		
 		comboBoxArticle = new JComboBox();
 		comboBoxArticle.setBounds(10, 35, 239, 20);
-		for(Article a :articleDao.getAllArticles()){
+		for(Article a :articleDao.listerArticles()){
 			comboBoxArticle.addItem(a);
 		}
 		panel_2.add(comboBoxArticle);
 		comboBoxArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				JComboBox comboBox = (JComboBox) event.getSource();
-				Article a = articleDao.getAllArticles().get(comboBox.getSelectedIndex());
+				Article a = articleDao.listerArticles().get(comboBox.getSelectedIndex());
 				txtCode.setText(""+a.getCode());
 				txtCategorie.setText(a.getCategorie());
 				txtDesignation.setText(a.getDesignation());
