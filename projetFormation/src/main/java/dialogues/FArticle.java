@@ -42,6 +42,8 @@ import src.main.java.entite.dao.UserDaoMysql;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class FArticle extends JFrame {
 
@@ -54,6 +56,7 @@ public class FArticle extends JFrame {
 	private JTextField txtRecherche;
 	private List<Article> lesArticles;
 	private List<String> lesCategories;
+	boolean tri = false;
 
 	/**
 	 * Launch the application.
@@ -76,8 +79,8 @@ public class FArticle extends JFrame {
 	 */
 	public FArticle(List<Article> listArticles) {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-		if (listArticles == null) {
-			lesArticles = articleDao.getAllArticles();
+		if (listArticles == null ) {	
+			lesArticles = articleDao.getAllArticles(tri);
 		} else {
 			lesArticles = listArticles;
 		}
@@ -240,9 +243,11 @@ public class FArticle extends JFrame {
 				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
 				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 				articleDao.ajouterArticle(article);
-				FArticle fenetreAccueil = new FArticle(null);
-				setVisible(false);
-				fenetreAccueil.setVisible(true);
+				lesArticles = articleDao.getAllArticles(false);
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+				
+				
 			}
 		});
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -262,9 +267,9 @@ public class FArticle extends JFrame {
 				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
 				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 				articleDao.modifierArticle(article);
-				FArticle fenetreAccueil = new FArticle(null);
-				setVisible(false);
-				fenetreAccueil.setVisible(true);
+				lesArticles = articleDao.getAllArticles(false);
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
 			}
 		});
 		btnModifier.setEnabled(false);
@@ -281,10 +286,10 @@ public class FArticle extends JFrame {
 				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 				int idTab = tableArticles.getSelectedRow();
 				int idArticle = lesArticles.get(idTab).getCode();
-				articleDao.deleteArticle(idArticle);
-				setVisible(false);
-				FArticle fenetreAccueil = new FArticle(null);
-				fenetreAccueil.setVisible(true);
+				articleDao.deleteArticle(idArticle);	
+				lesArticles = articleDao.getAllArticles(false);
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
 			}
 		});
 		btnSupprimer.setEnabled(false);
@@ -295,14 +300,19 @@ public class FArticle extends JFrame {
 		UI.deshabillerBouton(btnSupprimer);
 		
 		JButton btnEffacer = new JButton("Effacer");
+		btnEffacer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtCode.setText("");
+				txtDesignation.setText("");
+				txtPrixUnitaire.setText("");
+				txtQuantite.setText("");
+			}
+		});
 		btnEffacer.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
 		btnEffacer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnEffacer.setBounds(606, 102, 150, 50);
 		panel.add(btnEffacer);
 		UI.deshabillerBouton(btnEffacer);
-		
-	
-		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 161, 790, 400);
@@ -349,9 +359,15 @@ public class FArticle extends JFrame {
 		mainPanel.add(lblTrierPar);
 		
 		JRadioButton rdbtnCode = new JRadioButton("Code");
+		rdbtnCode.isSelected();
 		rdbtnCode.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ArticleDaoMysql articleTri = new ArticleDaoMysql(GlobalConnection.getInstance());	
+				lesArticles = articleTri.getAllArticles(false);
+				tri = false;
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
 			}
 		});
 		rdbtnCode.setBounds(129, 568, 109, 23);
@@ -360,6 +376,16 @@ public class FArticle extends JFrame {
 		mainPanel.add(rdbtnCode);
 		
 		JRadioButton rdbtnCategorie = new JRadioButton("Cat\u00E9gorie");
+		rdbtnCategorie.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ArticleDaoMysql articleTri = new ArticleDaoMysql(GlobalConnection.getInstance());	
+				lesArticles = articleTri.getAllArticles(true);
+				tri = true;
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+			}
+		});
 		rdbtnCategorie.setBounds(240, 568, 109, 23);
 		rdbtnCategorie.setBackground(new Color(255, 255, 153));
 		rdbtnCategorie.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -379,10 +405,8 @@ public class FArticle extends JFrame {
 		txtRecherche.setBounds(534, 570, 227, 20);
 		mainPanel.add(txtRecherche);
 		txtRecherche.setColumns(10);
-		
-
-
 	
+		
 		
 	}
 }
