@@ -25,7 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 
-public class CommandeExistante extends JFrame {
+public class FCommandeExistante extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tblCommande;
@@ -38,7 +38,7 @@ public class CommandeExistante extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CommandeExistante frame = new CommandeExistante();
+					FCommandeExistante frame = new FCommandeExistante();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,9 +50,9 @@ public class CommandeExistante extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CommandeExistante() {
+	public FCommandeExistante() {
 		CommandeDaoMysql commandeDao = new CommandeDaoMysql(GlobalConnection.getInstance());
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CommandeExistante.class.getResource("/target/images/Moon-32.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FCommandeExistante.class.getResource("/target/images/Moon-32.png")));
 		setTitle("Gestion des commandes existantes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 857, 575);
@@ -69,7 +69,7 @@ public class CommandeExistante extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel lblCommande = new JLabel("Commandes");
-		lblCommande.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/commande/Shopping-Bag-64-actif.png")));
+		lblCommande.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/commande/Shopping-Bag-64-actif.png")));
 		lblCommande.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCommande.setBounds(10, 11, 233, 64);
 		panel.add(lblCommande);
@@ -77,26 +77,26 @@ public class CommandeExistante extends JFrame {
 		JLabel lblSupprimer = new JLabel("Supprimer");
 		lblSupprimer.setForeground(new Color(255, 255, 255));
 		lblSupprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblSupprimer.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
+		lblSupprimer.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
 		lblSupprimer.setBounds(10, 100, 233, 48);
 		panel.add(lblSupprimer);
 		
 		JLabel lblApercu = new JLabel("Aper\u00E7u");
-		lblApercu.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/Preview-48.png")));
+		lblApercu.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Preview-48.png")));
 		lblApercu.setForeground(Color.WHITE);
 		lblApercu.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblApercu.setBounds(10, 241, 233, 48);
 		panel.add(lblApercu);
 		
 		JLabel lblImprimer = new JLabel("Imprimer");
-		lblImprimer.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/Printer-48.png")));
+		lblImprimer.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Printer-48.png")));
 		lblImprimer.setForeground(Color.WHITE);
 		lblImprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblImprimer.setBounds(10, 300, 233, 48);
 		panel.add(lblImprimer);
 		
 		JLabel lblExport = new JLabel("Export");
-		lblExport.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/Data-Export-48.png")));
+		lblExport.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Data-Export-48.png")));
 		lblExport.setForeground(Color.WHITE);
 		lblExport.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblExport.setBounds(10, 359, 233, 48);
@@ -107,11 +107,11 @@ public class CommandeExistante extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				Accueil fenetreAccueil = new Accueil();
+				FAccueil fenetreAccueil = new FAccueil();
 				fenetreAccueil.setVisible(true);
 			}
 		});
-		lblAccueil.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/Home-48.png")));
+		lblAccueil.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Home-48.png")));
 		lblAccueil.setForeground(Color.WHITE);
 		lblAccueil.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblAccueil.setBounds(10, 483, 233, 48);
@@ -145,7 +145,7 @@ public class CommandeExistante extends JFrame {
 		
 		JLabel lblRecherche = new JLabel("Recherche");
 		lblRecherche.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblRecherche.setIcon(new ImageIcon(CommandeExistante.class.getResource("/target/images/gestion/Search-32.png")));
+		lblRecherche.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Search-32.png")));
 		lblRecherche.setBounds(564, 482, 105, 44);
 		contentPane.add(lblRecherche);
 		

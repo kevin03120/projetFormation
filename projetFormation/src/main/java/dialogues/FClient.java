@@ -44,7 +44,7 @@ import src.main.java.entite.dao.UserDaoMysql;
 
 import javax.swing.DefaultComboBoxModel;
 
-public class ClientAccueil extends JFrame {
+public class FClient extends JFrame {
 	private JTextField txtCode;
 	private JTextField txtCreation;
 	private JTextField txtPrenom;
@@ -66,7 +66,7 @@ public class ClientAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientAccueil frame = new ClientAccueil(null);
+					FClient frame = new FClient(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,11 +78,11 @@ public class ClientAccueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientAccueil(List<Client> mesBasesClients) {
+	public FClient(List<Client> mesBasesClients) {
 		controleClient = new ControleClient();
 		setIconImage(
-				Toolkit.getDefaultToolkit().getImage(ClientAccueil.class.getResource("/target/images/Moon-32.png")));
-		ClientAccueil a = this;
+				Toolkit.getDefaultToolkit().getImage(FClient.class.getResource("/target/images/Moon-32.png")));
+		FClient a = this;
 		mesClients = controleClient.getMesClientsDynamique(mesBasesClients);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 770, 584);
@@ -95,7 +95,7 @@ public class ClientAccueil extends JFrame {
 
 		JLabel lblClients = new JLabel("Clients");
 		lblClients.setIcon(
-				new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/client/User-Modify-64.png")));
+				new ImageIcon(FClient.class.getResource("/target/images/gestion/client/User-Modify-64.png")));
 		lblClients.setFont(new Font("Dialog", Font.BOLD, 15));
 		lblClients.setBounds(10, 11, 132, 69);
 		panelClient.add(lblClients);
@@ -103,21 +103,21 @@ public class ClientAccueil extends JFrame {
 		JButton btnRechercher = new JButton("Rechercher");
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClientRecherche clientR = new ClientRecherche(a);
+				FClientRecherche clientR = new FClientRecherche(a);
 				setSize(820, 585);
 				panelClient.setVisible(false);
 				setContentPane(clientR);
 			}
 		});
 		btnRechercher.setHorizontalAlignment(SwingConstants.LEFT);
-		btnRechercher.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Search-48.png")));
+		btnRechercher.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Search-48.png")));
 		btnRechercher.setBounds(10, 153, 141, 51);
 		panelClient.add(btnRechercher);
 
 		JButton btnAjouter = new JButton(" Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ClientAjout clientA = new ClientAjout(a);
+				FClientAjout clientA = new FClientAjout(a);
 				setSize(820, 585);
 				panelClient.setVisible(false);
 				setContentPane(clientA);
@@ -126,11 +126,11 @@ public class ClientAccueil extends JFrame {
 		btnAjouter.setHorizontalAlignment(SwingConstants.LEFT);
 		btnAjouter.setBounds(10, 91, 141, 51);
 		panelClient.add(btnAjouter);
-		btnAjouter.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Add-New-48.png")));
+		btnAjouter.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Add-New-48.png")));
 
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setHorizontalAlignment(SwingConstants.LEFT);
-		btnModifier.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Data-Edit-48.png")));
+		btnModifier.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Data-Edit-48.png")));
 		btnModifier.setBounds(10, 215, 142, 51);
 		panelClient.add(btnModifier);
 
@@ -146,7 +146,7 @@ public class ClientAccueil extends JFrame {
 					if (tblClient.getSelectedRow() != -1) {
 						controleClient.deleteClient(tblClient.getSelectedRow(), mesClients);
 						setVisible(false);
-						ClientAccueil clientA = new ClientAccueil(null);
+						FClient clientA = new FClient(null);
 						clientA.setVisible(true);
 					}
 				} else {
@@ -156,12 +156,12 @@ public class ClientAccueil extends JFrame {
 		});
 		btnSupprimer.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSupprimer
-				.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
+				.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
 		btnSupprimer.setBounds(10, 277, 142, 51);
 		panelClient.add(btnSupprimer);
 
 		JButton btnApercu = new JButton("Aper\u00E7u");
-		btnApercu.setIcon(new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Preview-48.png")));
+		btnApercu.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Preview-48.png")));
 		btnApercu.setBounds(10, 361, 141, 51);
 		panelClient.add(btnApercu);
 
@@ -178,7 +178,7 @@ public class ClientAccueil extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				Accueil fenetreAccueil = new Accueil();
+				FAccueil fenetreAccueil = new FAccueil();
 				fenetreAccueil.setVisible(true);
 			}
 		});
@@ -294,7 +294,7 @@ public class ClientAccueil extends JFrame {
 
 		JLabel lblTrierLaListe = new JLabel("Trier la liste par");
 		lblTrierLaListe.setIcon(
-				new ImageIcon(ClientAccueil.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
+				new ImageIcon(FClient.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
 		lblTrierLaListe.setBounds(23, 256, 196, 14);
 		panel_2.add(lblTrierLaListe);
 
@@ -310,12 +310,12 @@ public class ClientAccueil extends JFrame {
 				JComboBox comboBox = (JComboBox) event.getSource();
 
 				if (comboBox.getSelectedIndex() == 0) {
-					ClientAccueil clientA = new ClientAccueil(controleClient.TriOrdreAlphabetiqueNom(mesClients));
+					FClient clientA = new FClient(controleClient.TriOrdreAlphabetiqueNom(mesClients));
 					setVisible(false);
 					clientA.setVisible(true);
 
 				} else {
-					ClientAccueil clientA = new ClientAccueil(controleClient.TriOrdreAlphabetiquePrenom(mesClients));
+					FClient clientA = new FClient(controleClient.TriOrdreAlphabetiquePrenom(mesClients));
 					setVisible(false);
 					clientA.setVisible(true);
 				}

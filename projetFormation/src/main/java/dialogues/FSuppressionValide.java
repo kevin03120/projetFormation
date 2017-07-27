@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class SuppressionValide extends JFrame {
+public class FSuppressionValide extends JFrame {
 
 	private JPanel contentPane;
 
@@ -25,7 +25,7 @@ public class SuppressionValide extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SuppressionValide frame = new SuppressionValide();
+					FSuppressionValide frame = new FSuppressionValide();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class SuppressionValide extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SuppressionValide() {
+	public FSuppressionValide() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 233);
 		contentPane = new JPanel();

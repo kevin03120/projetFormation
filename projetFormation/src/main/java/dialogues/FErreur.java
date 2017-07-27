@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class Erreur extends JFrame {
+public class FErreur extends JFrame {
 
 	private JPanel contentPane;
 
@@ -20,7 +20,7 @@ public class Erreur extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Erreur frame = new Erreur();
+					FErreur frame = new FErreur();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,7 +32,7 @@ public class Erreur extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Erreur() {
+	public FErreur() {
 		setBounds(100, 100, 362, 154);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

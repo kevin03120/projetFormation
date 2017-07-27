@@ -29,7 +29,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPasswordField;
 
-public class Connexion extends JFrame {
+public class FConnexion extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNomUtilisateur;
@@ -43,7 +43,7 @@ public class Connexion extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Connexion frame = new Connexion();
+					FConnexion frame = new FConnexion();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,14 +55,14 @@ public class Connexion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Connexion() {
+	public FConnexion() {
 		String db = "jdbc:mysql://localhost:3306/luna";
 		UserDaoMysql userDao = new UserDaoMysql(GlobalConnection.getInstance());
 		users = userDao.getAllUser();
 		
 		
 		setTitle("SARL LUNA");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Connexion.class.getResource("/target/images/Moon-32.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FConnexion.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 327);
 		contentPane = new JPanel();
@@ -76,7 +76,7 @@ public class Connexion extends JFrame {
 		contentPane.add(lblConnexion);
 		
 		JLabel lblIconConnexion = new JLabel("New label");
-		lblIconConnexion.setIcon(new ImageIcon(Connexion.class.getResource("/target/images/connection/Shopping-Cart-05-48.png")));
+		lblIconConnexion.setIcon(new ImageIcon(FConnexion.class.getResource("/target/images/connection/Shopping-Cart-05-48.png")));
 		lblIconConnexion.setBounds(96, 11, 46, 48);
 		contentPane.add(lblIconConnexion);
 		
@@ -93,7 +93,7 @@ public class Connexion extends JFrame {
 		panel.add(lblNomUtilisateur);
 		
 		JLabel lblIconNomUtilisateur = new JLabel("");
-		lblIconNomUtilisateur.setIcon(new ImageIcon(Connexion.class.getResource("/target/images/connection/Windows-8-Login-16.png")));
+		lblIconNomUtilisateur.setIcon(new ImageIcon(FConnexion.class.getResource("/target/images/connection/Windows-8-Login-16.png")));
 		lblIconNomUtilisateur.setBounds(126, 11, 16, 21);
 		panel.add(lblIconNomUtilisateur);
 		
@@ -108,7 +108,7 @@ public class Connexion extends JFrame {
 		panel.add(lblMotDePasse);
 		
 		JLabel lblIconMotDePasse = new JLabel("");
-		lblIconMotDePasse.setIcon(new ImageIcon(Connexion.class.getResource("/target/images/connection/Key-16.png")));
+		lblIconMotDePasse.setIcon(new ImageIcon(FConnexion.class.getResource("/target/images/connection/Key-16.png")));
 		lblIconMotDePasse.setBounds(126, 43, 16, 14);
 		panel.add(lblIconMotDePasse);
 		
@@ -135,7 +135,7 @@ public class Connexion extends JFrame {
 		panel.add(txtMotDePasse);
 		
 		JLabel lblParametres = new JLabel("Param\u00E8tres");
-		lblParametres.setIcon(new ImageIcon(Connexion.class.getResource("/target/images/connection/Customize-01-48.png")));
+		lblParametres.setIcon(new ImageIcon(FConnexion.class.getResource("/target/images/connection/Customize-01-48.png")));
 		lblParametres.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblParametres.setBounds(10, 247, 121, 25);
 		contentPane.add(lblParametres);
@@ -147,7 +147,7 @@ public class Connexion extends JFrame {
 				System.exit(0);
 			}
 		});
-		lblQuitter.setIcon(new ImageIcon(Connexion.class.getResource("/target/images/connection/Stop-48.png")));
+		lblQuitter.setIcon(new ImageIcon(FConnexion.class.getResource("/target/images/connection/Stop-48.png")));
 		lblQuitter.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblQuitter.setBounds(180, 246, 104, 27);
 		contentPane.add(lblQuitter);
@@ -158,11 +158,11 @@ public class Connexion extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(testConnexion()){
 					setVisible(false);
-					Accueil accueil = new Accueil();
+					FAccueil accueil = new FAccueil();
 					accueil.setVisible(true);
 				}
 				else{
-					Erreur erreur = new Erreur();
+					FErreur erreur = new FErreur();
 					erreur.setVisible(true);
 				}
 			}
@@ -170,7 +170,7 @@ public class Connexion extends JFrame {
 		lblValider.setForeground(SystemColor.text);
 		lblValider.setBackground(SystemColor.textHighlight);
 		lblValider.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblValider.setIcon(new ImageIcon(Connexion.class.getResource("/target/images/connection/Power-48.png")));
+		lblValider.setIcon(new ImageIcon(FConnexion.class.getResource("/target/images/connection/Power-48.png")));
 		lblValider.setOpaque(true);
 		lblValider.setBounds(326, 247, 98, 26);
 		contentPane.add(lblValider);

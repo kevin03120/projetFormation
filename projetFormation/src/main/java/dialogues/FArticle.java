@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.ToDoubleFunction;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -40,18 +41,19 @@ import src.main.java.entite.dao.UserDaoMysql;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
 
-public class ArticleAccueil extends JFrame {
+public class FArticle extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCode;
 	private JTextField txtDesignation;
-	private JTextField txtCategorie;
 	private JTextField txtPrixUnitaire;
 	private JTextField txtQuantite;
 	private JTable tableArticles;
 	private JTextField txtRecherche;
 	private List<Article> lesArticles;
+	private List<String> lesCategories;
 
 	/**
 	 * Launch the application.
@@ -60,7 +62,7 @@ public class ArticleAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ArticleAccueil frame = new ArticleAccueil(null);
+					FArticle frame = new FArticle(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,13 +74,14 @@ public class ArticleAccueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ArticleAccueil(List<Article> listArticles) {
+	public FArticle(List<Article> listArticles) {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 		if (listArticles == null) {
 			lesArticles = articleDao.getAllArticles();
 		} else {
 			lesArticles = listArticles;
 		}
+		
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +107,7 @@ public class ArticleAccueil extends JFrame {
 		btnAccueil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Accueil fenetreAccueil = new Accueil();
+				FAccueil fenetreAccueil = new FAccueil();
 				fenetreAccueil.setVisible(true);		
 			}
 		});
@@ -194,11 +197,6 @@ public class ArticleAccueil extends JFrame {
 		txtDesignation.setBounds(130, 39, 626, 20);
 		panel.add(txtDesignation);
 		
-		txtCategorie = new JTextField();
-		txtCategorie.setBounds(590, 11, 166, 20);
-		panel.add(txtCategorie);
-		txtCategorie.setColumns(10);
-		
 		txtPrixUnitaire = new JTextField();
 		txtPrixUnitaire.setBounds(590, 67, 166, 20);
 		panel.add(txtPrixUnitaire);
@@ -222,8 +220,31 @@ public class ArticleAccueil extends JFrame {
 		txtQuantite.setBounds(400, 67, 60, 20);
 		panel.add(txtQuantite);
 		txtQuantite.setColumns(10);
+		JComboBox cBoxCategorie = new JComboBox();
+		cBoxCategorie.setBounds(590, 11, 166, 20);
+		panel.add(cBoxCategorie);
 		
+		ArticleDaoMysql categoriesDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+		lesCategories = articleDao.lireCategories();
+		for(String categories : lesCategories) {
+			cBoxCategorie.addItem(categories);
+		}
 		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Article article = new Article();
+				article.setCode(new Integer(txtCode.getText()));
+				article.setDesignation(txtDesignation.getText());
+				article.setCategorie(cBoxCategorie.getSelectedItem().toString());
+				article.setQuantite(new Integer(txtQuantite.getText()));
+				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
+				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+				articleDao.ajouterArticle(article);
+				FArticle fenetreAccueil = new FArticle(null);
+				setVisible(false);
+				fenetreAccueil.setVisible(true);
+			}
+		});
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnAjouter.setIcon(new ImageIcon("C:\\images\\gestion\\Add-New-48.png"));
 		btnAjouter.setBounds(10, 102, 150, 50);
@@ -248,12 +269,10 @@ public class ArticleAccueil extends JFrame {
 				Article article = new Article();
 				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 				int idTab = tableArticles.getSelectedRow();
-				System.out.println(idTab);
 				int idArticle = lesArticles.get(idTab).getCode();
-				System.out.println(idArticle);
 				articleDao.deleteArticle(idArticle);
 				setVisible(false);
-				ArticleAccueil fenetreAccueil = new ArticleAccueil(null);
+				FArticle fenetreAccueil = new FArticle(null);
 				fenetreAccueil.setVisible(true);
 			}
 		});
@@ -271,6 +290,9 @@ public class ArticleAccueil extends JFrame {
 		panel.add(btnEffacer);
 		UI.deshabillerBouton(btnEffacer);
 		
+	
+		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 161, 790, 400);
 		mainPanel.add(scrollPane);
@@ -283,7 +305,7 @@ public class ArticleAccueil extends JFrame {
 				int idRow = tableArticles.getSelectedRow();
 				article = lesArticles.get(idRow);
 				txtCode.setText(Integer.toString(article.getCode()));
-				txtCategorie.setText(article.getCategorie());
+				cBoxCategorie.setSelectedItem(article.getCategorie());
 				txtDesignation.setText(article.getDesignation());
 				txtQuantite.setText(Integer.toString(article.getQuantite()));
 				txtPrixUnitaire.setText(Double.toString(article.getPrixUnitaire()));
