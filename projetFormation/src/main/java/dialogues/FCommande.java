@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
@@ -20,15 +21,36 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import src.main.java.controle.ControleArticle;
+import src.main.java.controle.ControleClient;
+import src.main.java.controle.ControleCommande;
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.controle.modele.ModeleDynamiqueCommande;
+import src.main.java.entite.Article;
+import src.main.java.entite.Client;
+import src.main.java.entite.Commande;
+import src.main.java.entite.CommandeArticle;
+import src.main.java.entite.dao.ArticleDaoMysql;
+import src.main.java.entite.dao.ClientDaoMysql;
+import src.main.java.entite.dao.CommandeDaoMysql;
+
 import javax.swing.JComboBox;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FCommande extends JFrame {
 
 	private JPanel contentPane;
+	private JLabel lblTotal;
 	private JTextField txtCommande;
 	private JTextField txtDate;
 	private JTextField txtCode;
@@ -36,6 +58,11 @@ public class FCommande extends JFrame {
 	private JTextField txtDesignation;
 	private JTextField txtMontant;
 	private JTable tblCommande;
+	private ControleCommande controleCommande;
+	private ControleClient controleClient;
+	private ArticleDaoMysql articleDao;
+	private JComboBox comboBoxArticle;
+	private double total;
 
 	/**
 	 * Launch the application.
@@ -57,6 +84,12 @@ public class FCommande extends JFrame {
 	 * Create the frame.
 	 */
 	public FCommande() {
+		total = 0.00;
+		List<CommandeArticle> listCommande = new ArrayList<>();
+		articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
+		controleClient = new ControleClient();
+		controleCommande = new ControleCommande();
+		controleCommande = new ControleCommande();
 		setTitle("Gestion des commandes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FCommande.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,6 +136,16 @@ public class FCommande extends JFrame {
 		panel.add(lblSupprime);
 		
 		JLabel lblSupprimeAll = new JLabel("Supprimer toutes les lignes");
+		lblSupprimeAll.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				List<CommandeArticle> ca = new ArrayList<>();
+				tblCommande.setModel(new ModeleDynamiqueCommande(ca));
+				total = 0.00;
+				lblTotal.setText(""+total+"€");
+				listCommande.clear();
+			}
+		});
 		lblSupprimeAll.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
 		lblSupprimeAll.setForeground(Color.WHITE);
 		lblSupprimeAll.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -186,14 +229,12 @@ public class FCommande extends JFrame {
 		lblNomDuClient.setBounds(50, 66, 84, 14);
 		panel_1.add(lblNomDuClient);
 		
-		JLabel txtNomDuClient = new JLabel("Selectionner le client");
-		txtNomDuClient.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Search-48.png")));
-		txtNomDuClient.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtNomDuClient.setBackground(new Color(255, 140, 0));
-		txtNomDuClient.setForeground(new Color(255, 255, 255));
-		txtNomDuClient.setBounds(144, 52, 426, 44);
-		txtNomDuClient.setOpaque(true);
-		panel_1.add(txtNomDuClient);
+		JComboBox comboBoxClient = new JComboBox();
+		comboBoxClient.setBounds(144, 64, 241, 20);
+		for(Client c :controleClient.getMesClients()){
+			comboBoxClient.addItem(c);
+		}
+		panel_1.add(comboBoxClient);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(255, 140, 0)), "Valeurs de la commande", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -201,15 +242,6 @@ public class FCommande extends JFrame {
 		panel_2.setBounds(260, 129, 582, 315);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
-		JLabel lblSelectionClient = new JLabel("Selectionner un article");
-		lblSelectionClient.setOpaque(true);
-		lblSelectionClient.setBackground(new Color(255, 140, 0));
-		lblSelectionClient.setForeground(new Color(255, 255, 255));
-		lblSelectionClient.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblSelectionClient.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Search-48.png")));
-		lblSelectionClient.setBounds(10, 23, 236, 43);
-		panel_2.add(lblSelectionClient);
 		
 		JLabel lblCode = new JLabel("Code");
 		lblCode.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -244,9 +276,9 @@ public class FCommande extends JFrame {
 		panel_2.add(txtDesignation);
 		txtDesignation.setColumns(10);
 		
-		JLabel lblMontant = new JLabel("Montant");
+		JLabel lblMontant = new JLabel("Prix");
 		lblMontant.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblMontant.setBounds(256, 77, 59, 14);
+		lblMontant.setBounds(284, 77, 31, 14);
 		panel_2.add(lblMontant);
 		
 		txtMontant = new JTextField();
@@ -265,6 +297,26 @@ public class FCommande extends JFrame {
 		panel_2.add(spnQuantite);
 		
 		JLabel lblAjouter = new JLabel("Ajouter");
+		lblAjouter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CommandeArticle ca = new CommandeArticle();
+				Article a = articleDao.getAllArticles().get(comboBoxArticle.getSelectedIndex());
+				ca.setCodeArticle(a.getCode());
+				ca.setCodeCategorie(a.getCategorie());
+				ca.setDesignation(a.getDesignation());
+				ca.setPrix(a.getPrixUnitaire());
+				ca.setQuantite((int)spnQuantite.getValue());
+				ca.setTotal();
+				listCommande.add(ca);
+				tblCommande.setModel(new ModeleDynamiqueCommande(listCommande));
+				total = 0.00;
+				for (CommandeArticle commandeArticle : listCommande) {
+					total += commandeArticle.getTotal();
+				}
+				lblTotal.setText(""+((int)(total*100))/100. + "€");
+			}
+		});
 		lblAjouter.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Add-New-48.png")));
 		lblAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblAjouter.setBounds(96, 106, 115, 54);
@@ -277,6 +329,17 @@ public class FCommande extends JFrame {
 		panel_2.add(lblModifier);
 		
 		JLabel lblSupprimer = new JLabel("Supprimer");
+		lblSupprimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(listCommande.size()!=0){
+					total -= ((int)(listCommande.get(listCommande.size()-1).getTotal()*100))/100.;
+					lblTotal.setText(total + "€");
+					listCommande.remove(listCommande.size()-1);
+					tblCommande.setModel(new ModeleDynamiqueCommande(listCommande));
+				}
+			}
+		});
 		lblSupprimer.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Cancel-48.png")));
 		lblSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblSupprimer.setBounds(346, 106, 130, 54);
@@ -297,6 +360,23 @@ public class FCommande extends JFrame {
 		));
 		scrollPane.setViewportView(tblCommande);
 		
+		comboBoxArticle = new JComboBox();
+		comboBoxArticle.setBounds(10, 35, 239, 20);
+		for(Article a :articleDao.getAllArticles()){
+			comboBoxArticle.addItem(a);
+		}
+		panel_2.add(comboBoxArticle);
+		comboBoxArticle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				JComboBox comboBox = (JComboBox) event.getSource();
+				Article a = articleDao.getAllArticles().get(comboBox.getSelectedIndex());
+				txtCode.setText(""+a.getCode());
+				txtCategorie.setText(a.getCategorie());
+				txtDesignation.setText(a.getDesignation());
+				txtMontant.setText(""+ a.getPrixUnitaire());
+			}
+		});
+		
 		JLabel lblModeDeReglement = new JLabel("Mode de r\u00E9glement");
 		lblModeDeReglement.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/commande/ATM-32.png")));
 		lblModeDeReglement.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -309,7 +389,7 @@ public class FCommande extends JFrame {
 		cbReglement.setBounds(541, 481, 100, 20);
 		contentPane.add(cbReglement);
 		
-		JLabel lblTotal = new JLabel("0.00 \u20AC");
+		lblTotal = new JLabel("0.00 \u20AC");
 		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		Border border = BorderFactory.createLineBorder(Color.ORANGE, 2);
 		lblTotal.setBorder(border);
@@ -320,6 +400,24 @@ public class FCommande extends JFrame {
 		contentPane.add(lblTotal);
 		
 		JLabel lblValide = new JLabel("Valider la commande");
+		lblValide.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Client c = controleClient.getMesClients().get(comboBoxClient.getSelectedIndex());
+				Commande commande = new Commande();
+				commande.setDate(LocalDate.now());
+				commande.setClient(c);
+				commande.setNom_client(c.getNom());
+				commande.setMode_paiement(cbReglement.getSelectedItem().toString());
+				controleCommande.addCommande(commande);
+				for(CommandeArticle ca : listCommande){
+					controleCommande.addLigneCommande(ca.getCodeArticle(), ca.getQuantite());
+				}
+				FCommandeExistante coe = new FCommandeExistante();
+				coe.setVisible(true);
+				setVisible(false);
+			}
+		});
 		lblValide.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/commande/Shopping-Cart-05-48.png")));
 		lblValide.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblValide.setBounds(637, 536, 185, 35);

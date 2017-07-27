@@ -1,12 +1,15 @@
 package src.main.java.entite;
 
+import java.time.LocalDate;
+
 public class Commande {
 	
 	private String code;
 	private String nom_client;
+	private Client client;
 	private String mode_paiement;
 	private String TotalTTC;
-	private String date;
+	private LocalDate date;
 	
 	public String getCode() {
 		return code;
@@ -32,11 +35,17 @@ public class Commande {
 	public void setTotalTTC(String totalTTC) {
 		TotalTTC = totalTTC;
 	}
-	public String getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
 	}
 	
 	

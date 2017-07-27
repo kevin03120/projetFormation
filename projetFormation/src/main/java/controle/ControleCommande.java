@@ -4,7 +4,7 @@ import java.util.List;
 
 import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
-import src.main.java.controle.modele.ModeleDynamiqueCommande;
+import src.main.java.controle.modele.ModeleDynamiqueCommandeExistantes;
 import src.main.java.entite.Client;
 import src.main.java.entite.Commande;
 import src.main.java.entite.dao.CommandeDaoMysql;
@@ -12,17 +12,17 @@ import src.main.java.entite.dao.CommandeDaoMysql;
 public class ControleCommande {
 	
 	private CommandeDaoMysql commandeDao;
-	private ModeleDynamiqueCommande modeleCommande;
+	private ModeleDynamiqueCommandeExistantes modeleCommande;
 	private List<Commande> mesCommandes;
 
 	public ControleCommande() {
 		commandeDao = new CommandeDaoMysql(GlobalConnection.getInstance());
 		mesCommandes = commandeDao.getAllCommandes();
-		modeleCommande = new ModeleDynamiqueCommande(mesCommandes);
+		modeleCommande = new ModeleDynamiqueCommandeExistantes(mesCommandes);
 	}
 	
 
-	public ModeleDynamiqueCommande getModeleCommande() {
+	public ModeleDynamiqueCommandeExistantes getModeleCommande() {
 		return modeleCommande;
 	}
 
@@ -34,9 +34,16 @@ public class ControleCommande {
 		return commandeDao.getTotalPrixCommandes();
 	}
 	
-	public void deleteClient(String code){
-		commandeDao.deleteClient(code);
+	public void deleteCommande(String code){
+		commandeDao.deleteCommande(code);
 	}
 	
+	public void addCommande(Commande c){
+		commandeDao.addCommande(c);
+	}
+	
+	public void addLigneCommande(int codeArticle, int quantite){
+		commandeDao.addLigneCommande(codeArticle, quantite);
+	}
 	
 }

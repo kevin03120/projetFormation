@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import src.main.java.controle.ControleCommande;
 import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
-import src.main.java.controle.modele.ModeleDynamiqueCommande;
+import src.main.java.controle.modele.ModeleDynamiqueCommandeExistantes;
 import src.main.java.entite.dao.ClientDaoMysql;
 import src.main.java.entite.dao.CommandeDaoMysql;
 
@@ -77,6 +79,24 @@ public class FCommandeExistante extends JFrame {
 		panel.add(lblCommande);
 		
 		JLabel lblSupprimer = new JLabel("Supprimer");
+		lblSupprimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane jop = new JOptionPane();
+				int option = jop.showConfirmDialog(null, "Voulez-vous vraiment supprimer la commande selectionnée ?",
+						"Demande de validation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (option == JOptionPane.OK_OPTION) {
+					if (tblCommande.getSelectedRow() != -1) {
+						controleCommande.deleteCommande(controleCommande.getMesCommandes().get(tblCommande.getSelectedRow()).getCode());
+						setVisible(false);
+						FCommandeExistante commandeF = new FCommandeExistante();
+						commandeF.setVisible(true);
+					}
+				} else {
+					jop.setVisible(false);
+				}
+			}
+		});
 		lblSupprimer.setForeground(new Color(255, 255, 255));
 		lblSupprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblSupprimer.setIcon(new ImageIcon(FCommandeExistante.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
@@ -124,13 +144,6 @@ public class FCommandeExistante extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tblCommande = new JTable();
-		tblCommande.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Code", "Client", "Mode de paiement", "Total TTC", "Date"
-			}
-		));
 		scrollPane.setViewportView(tblCommande);
 		tblCommande.setModel(controleCommande.getModeleCommande());
 		
