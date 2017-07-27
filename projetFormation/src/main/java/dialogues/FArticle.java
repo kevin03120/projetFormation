@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -364,6 +365,20 @@ public class FArticle extends JFrame {
 		mainPanel.add(lblRecherche);
 		
 		txtRecherche = new JTextField();
+		txtRecherche.addInputMethodListener(new InputMethodListener() {
+			public void caretPositionChanged(InputMethodEvent event) {
+				ArticleDaoMysql rechdao = new ArticleDaoMysql(GlobalConnection.getInstance());
+				lesArticles = rechdao.rechercherArticle(txtRecherche.getText());
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+			}
+			public void inputMethodTextChanged(InputMethodEvent event) {
+				ArticleDaoMysql rechdao = new ArticleDaoMysql(GlobalConnection.getInstance());
+				lesArticles = rechdao.rechercherArticle(txtRecherche.getText());
+				tableArticles.removeAll();
+				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+			}
+		});
 		txtRecherche.setBounds(534, 570, 227, 20);
 		mainPanel.add(txtRecherche);
 		txtRecherche.setColumns(10);
