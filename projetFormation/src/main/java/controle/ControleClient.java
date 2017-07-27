@@ -10,8 +10,8 @@ import javax.swing.JTable;
 
 import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
-import src.main.java.dialogues.ClientAccueil;
-import src.main.java.dialogues.ClientAjout;
+import src.main.java.dialogues.FClient;
+import src.main.java.dialogues.FClientAjout;
 import src.main.java.entite.Client;
 import src.main.java.entite.dao.ClientDaoMysql;
 

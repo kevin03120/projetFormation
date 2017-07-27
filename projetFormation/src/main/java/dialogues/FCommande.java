@@ -26,7 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Commande extends JFrame {
+public class FCommande extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCommande;
@@ -44,7 +44,7 @@ public class Commande extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Commande frame = new Commande();
+					FCommande frame = new FCommande();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,9 +56,9 @@ public class Commande extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Commande() {
+	public FCommande() {
 		setTitle("Gestion des commandes");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Commande.class.getResource("/target/images/Moon-32.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FCommande.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 869, 620);
 		contentPane = new JPanel();
@@ -75,7 +75,7 @@ public class Commande extends JFrame {
 		
 		JLabel lblCommande = new JLabel("Commande");
 		lblCommande.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCommande.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/commande/Shopping-Bag-64-actif.png")));
+		lblCommande.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/commande/Shopping-Bag-64-actif.png")));
 		lblCommande.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCommande.setBounds(10, 5, 230, 64);
 		panel.add(lblCommande);
@@ -85,53 +85,53 @@ public class Commande extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				CommandeExistante fenetreCommEx = new CommandeExistante();
+				FCommandeExistante fenetreCommEx = new FCommandeExistante();
 				fenetreCommEx.setVisible(true);
 			}
 		});
 		lblCommandeExistante.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblCommandeExistante.setForeground(new Color(255, 255, 255));
-		lblCommandeExistante.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Receipt-48.png")));
+		lblCommandeExistante.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Receipt-48.png")));
 		lblCommandeExistante.setBounds(10, 80, 230, 48);
 		panel.add(lblCommandeExistante);
 		
 		JLabel lblSupprime = new JLabel("Supprimer");
 		lblSupprime.setForeground(new Color(255, 255, 255));
 		lblSupprime.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblSupprime.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Cancel-48.png")));
+		lblSupprime.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Cancel-48.png")));
 		lblSupprime.setBounds(10, 139, 230, 41);
 		panel.add(lblSupprime);
 		
 		JLabel lblSupprimeAll = new JLabel("Supprimer toutes les lignes");
-		lblSupprimeAll.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
+		lblSupprimeAll.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Garbage-Open-48.png")));
 		lblSupprimeAll.setForeground(Color.WHITE);
 		lblSupprimeAll.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblSupprimeAll.setBounds(10, 191, 230, 41);
 		panel.add(lblSupprimeAll);
 		
 		JLabel lblValider = new JLabel("Valider la commande");
-		lblValider.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/commande/Shopping-Cart-05-48.png")));
+		lblValider.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/commande/Shopping-Cart-05-48.png")));
 		lblValider.setForeground(Color.WHITE);
 		lblValider.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblValider.setBounds(10, 244, 230, 41);
 		panel.add(lblValider);
 		
 		JLabel lblApercu = new JLabel("Aper\u00E7u");
-		lblApercu.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Preview-48.png")));
+		lblApercu.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Preview-48.png")));
 		lblApercu.setForeground(Color.WHITE);
 		lblApercu.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblApercu.setBounds(10, 324, 230, 41);
 		panel.add(lblApercu);
 		
 		JLabel lblImprimer = new JLabel("Imprimer");
-		lblImprimer.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Printer-48.png")));
+		lblImprimer.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Printer-48.png")));
 		lblImprimer.setForeground(Color.WHITE);
 		lblImprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblImprimer.setBounds(10, 376, 230, 41);
 		panel.add(lblImprimer);
 		
 		JLabel lblExport = new JLabel("Export");
-		lblExport.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Data-Export-48.png")));
+		lblExport.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Data-Export-48.png")));
 		lblExport.setForeground(Color.WHITE);
 		lblExport.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblExport.setBounds(10, 428, 230, 41);
@@ -142,11 +142,11 @@ public class Commande extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				Accueil fenetreAccueil = new Accueil();
+				FAccueil fenetreAccueil = new FAccueil();
 				fenetreAccueil.setVisible(true);
 			}
 		});
-		lblAccueil.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Home-48.png")));
+		lblAccueil.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Home-48.png")));
 		lblAccueil.setForeground(Color.WHITE);
 		lblAccueil.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblAccueil.setBounds(10, 523, 230, 48);
@@ -187,7 +187,7 @@ public class Commande extends JFrame {
 		panel_1.add(lblNomDuClient);
 		
 		JLabel txtNomDuClient = new JLabel("Selectionner le client");
-		txtNomDuClient.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Search-48.png")));
+		txtNomDuClient.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Search-48.png")));
 		txtNomDuClient.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtNomDuClient.setBackground(new Color(255, 140, 0));
 		txtNomDuClient.setForeground(new Color(255, 255, 255));
@@ -207,7 +207,7 @@ public class Commande extends JFrame {
 		lblSelectionClient.setBackground(new Color(255, 140, 0));
 		lblSelectionClient.setForeground(new Color(255, 255, 255));
 		lblSelectionClient.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblSelectionClient.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Search-48.png")));
+		lblSelectionClient.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Search-48.png")));
 		lblSelectionClient.setBounds(10, 23, 236, 43);
 		panel_2.add(lblSelectionClient);
 		
@@ -265,19 +265,19 @@ public class Commande extends JFrame {
 		panel_2.add(spnQuantite);
 		
 		JLabel lblAjouter = new JLabel("Ajouter");
-		lblAjouter.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Add-New-48.png")));
+		lblAjouter.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Add-New-48.png")));
 		lblAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblAjouter.setBounds(96, 106, 115, 54);
 		panel_2.add(lblAjouter);
 		
 		JLabel lblModifier = new JLabel("Modifier");
-		lblModifier.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Data-Edit-48.png")));
+		lblModifier.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Data-Edit-48.png")));
 		lblModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblModifier.setBounds(221, 106, 115, 54);
 		panel_2.add(lblModifier);
 		
 		JLabel lblSupprimer = new JLabel("Supprimer");
-		lblSupprimer.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/Cancel-48.png")));
+		lblSupprimer.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/Cancel-48.png")));
 		lblSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblSupprimer.setBounds(346, 106, 130, 54);
 		panel_2.add(lblSupprimer);
@@ -298,7 +298,7 @@ public class Commande extends JFrame {
 		scrollPane.setViewportView(tblCommande);
 		
 		JLabel lblModeDeReglement = new JLabel("Mode de r\u00E9glement");
-		lblModeDeReglement.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/commande/ATM-32.png")));
+		lblModeDeReglement.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/commande/ATM-32.png")));
 		lblModeDeReglement.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblModeDeReglement.setBounds(365, 478, 166, 24);
 		contentPane.add(lblModeDeReglement);
@@ -320,7 +320,7 @@ public class Commande extends JFrame {
 		contentPane.add(lblTotal);
 		
 		JLabel lblValide = new JLabel("Valider la commande");
-		lblValide.setIcon(new ImageIcon(Commande.class.getResource("/target/images/gestion/commande/Shopping-Cart-05-48.png")));
+		lblValide.setIcon(new ImageIcon(FCommande.class.getResource("/target/images/gestion/commande/Shopping-Cart-05-48.png")));
 		lblValide.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblValide.setBounds(637, 536, 185, 35);
 		contentPane.add(lblValide);

@@ -43,7 +43,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 
-public class ArticleAccueil extends JFrame {
+public class FArticle extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCode;
@@ -62,7 +62,7 @@ public class ArticleAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ArticleAccueil frame = new ArticleAccueil(null);
+					FArticle frame = new FArticle(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,7 +74,7 @@ public class ArticleAccueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ArticleAccueil(List<Article> listArticles) {
+	public FArticle(List<Article> listArticles) {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 		if (listArticles == null) {
 			lesArticles = articleDao.getAllArticles();
@@ -107,7 +107,7 @@ public class ArticleAccueil extends JFrame {
 		btnAccueil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Accueil fenetreAccueil = new Accueil();
+				FAccueil fenetreAccueil = new FAccueil();
 				fenetreAccueil.setVisible(true);		
 			}
 		});
@@ -240,7 +240,7 @@ public class ArticleAccueil extends JFrame {
 				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
 				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 				articleDao.ajouterArticle(article);
-				ArticleAccueil fenetreAccueil = new ArticleAccueil(null);
+				FArticle fenetreAccueil = new FArticle(null);
 				setVisible(false);
 				fenetreAccueil.setVisible(true);
 			}
@@ -272,7 +272,7 @@ public class ArticleAccueil extends JFrame {
 				int idArticle = lesArticles.get(idTab).getCode();
 				articleDao.deleteArticle(idArticle);
 				setVisible(false);
-				ArticleAccueil fenetreAccueil = new ArticleAccueil(null);
+				FArticle fenetreAccueil = new FArticle(null);
 				fenetreAccueil.setVisible(true);
 			}
 		});

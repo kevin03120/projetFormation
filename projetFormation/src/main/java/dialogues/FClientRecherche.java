@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle.Control;
 
-public class ClientRecherche extends JPanel {
+public class FClientRecherche extends JPanel {
 	private JTextField txtCode;
 	private JTextField txtCreation;
 	private JTextField txtPrenom;
@@ -47,7 +47,7 @@ public class ClientRecherche extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public ClientRecherche(ClientAccueil a) {
+	public FClientRecherche(FClient a) {
 		controleClient = new ControleClient();
 		setBackground(new Color(224, 255, 255));
 		setLayout(null);
@@ -59,7 +59,7 @@ public class ClientRecherche extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ClientRecherche.class.getResource("/target/images/gestion/client/User-Find-64.png")));
+		lblNewLabel.setIcon(new ImageIcon(FClientRecherche.class.getResource("/target/images/gestion/client/User-Find-64.png")));
 		lblNewLabel.setBounds(10, 11, 64, 64);
 		panel.add(lblNewLabel);
 		
@@ -102,7 +102,7 @@ public class ClientRecherche extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				a.setVisible(false);
-				ClientAccueil clientA = new ClientAccueil(null);
+				FClient clientA = new FClient(null);
 				clientA.setVisible(true);
 			}
 		});
@@ -229,7 +229,7 @@ public class ClientRecherche extends JPanel {
 		});
 		
 		JLabel lblTri = new JLabel("Trier la liste par");
-		lblTri.setIcon(new ImageIcon(ClientRecherche.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
+		lblTri.setIcon(new ImageIcon(FClientRecherche.class.getResource("/target/images/gestion/Sort-Ascending-32.png")));
 		lblTri.setBounds(194, 531, 110, 14);
 		add(lblTri);
 		

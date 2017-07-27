@@ -30,7 +30,7 @@ import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Accueil extends JFrame {
+public class FAccueil extends JFrame {
 
 	private JPanel contentPane;
 
@@ -41,7 +41,7 @@ public class Accueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Accueil frame = new Accueil();
+					FAccueil frame = new FAccueil();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,9 +53,9 @@ public class Accueil extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Accueil() {
+	public FAccueil() {
 		setTitle("Accueil");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Accueil.class.getResource("/target/images/Moon-32.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FAccueil.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 525);
 		
@@ -88,14 +88,14 @@ public class Accueil extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
-				Connexion fenetreConnexion = new Connexion();
+				FConnexion fenetreConnexion = new FConnexion();
 				fenetreConnexion.setVisible(true);
 			}
 		});
 		lblRetour.setBackground(SystemColor.controlHighlight);
 		lblRetour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRetour.setOpaque(true);
-		lblRetour.setIcon(new ImageIcon(Accueil.class.getResource("/target/images/connection/Stop-48.png")));
+		lblRetour.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/connection/Stop-48.png")));
 		lblRetour.setBounds(0, 392, 126, 35);
 		panel.add(lblRetour);
 		
@@ -119,11 +119,11 @@ public class Accueil extends JFrame {
 		btnArticle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ArticleAccueil fenetreArticle = new ArticleAccueil(null);
+				FArticle fenetreArticle = new FArticle(null);
 				fenetreArticle.setVisible(true);
 			}
 		});
-		btnArticle.setIcon(new ImageIcon(Accueil.class.getResource("/target/images/accueil/Product-128.png")));
+		btnArticle.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/accueil/Product-128.png")));
 		GridBagConstraints gbc_btnArticle = new GridBagConstraints();
 		gbc_btnArticle.insets = new Insets(0, 0, 5, 5);
 		gbc_btnArticle.gridx = 1;
@@ -134,11 +134,11 @@ public class Accueil extends JFrame {
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ClientAccueil fenetreClient = new ClientAccueil(null);
+				FClient fenetreClient = new FClient(null);
 				fenetreClient.setVisible(true);
 			}
 		});
-		btnClient.setIcon(new ImageIcon(Accueil.class.getResource("/target/images/accueil/People-128.png")));
+		btnClient.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/accueil/People-128.png")));
 		GridBagConstraints gbc_btnClient = new GridBagConstraints();
 		gbc_btnClient.insets = new Insets(0, 0, 5, 5);
 		gbc_btnClient.gridx = 0;
@@ -146,7 +146,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnClient, gbc_btnClient);
 		
 		JButton btnStatistique = new JButton("");
-		btnStatistique.setIcon(new ImageIcon(Accueil.class.getResource("/target/images/accueil/Diagram-128.png")));
+		btnStatistique.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/accueil/Diagram-128.png")));
 		GridBagConstraints gbc_btnStatistique = new GridBagConstraints();
 		gbc_btnStatistique.insets = new Insets(0, 0, 5, 5);
 		gbc_btnStatistique.gridx = 1;
@@ -157,11 +157,11 @@ public class Accueil extends JFrame {
 		btnCommande.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Commande fenetreCommande = new Commande();
+				FCommande fenetreCommande = new FCommande();
 				fenetreCommande.setVisible(true);
 			}
 		});
-		btnCommande.setIcon(new ImageIcon(Accueil.class.getResource("/target/images/accueil/Shopping-Bag-128.png")));
+		btnCommande.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/accueil/Shopping-Bag-128.png")));
 		GridBagConstraints gbc_btnCommande = new GridBagConstraints();
 		gbc_btnCommande.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCommande.gridx = 2;
@@ -169,7 +169,7 @@ public class Accueil extends JFrame {
 		panel_1.add(btnCommande, gbc_btnCommande);
 		
 		JButton btnParametre = new JButton("");
-		btnParametre.setIcon(new ImageIcon(Accueil.class.getResource("/target/images/accueil/Settings-02-128.png")));
+		btnParametre.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/accueil/Settings-02-128.png")));
 		GridBagConstraints gbc_btnParametre = new GridBagConstraints();
 		gbc_btnParametre.insets = new Insets(0, 0, 0, 5);
 		gbc_btnParametre.gridx = 1;
