@@ -42,6 +42,10 @@ public class ControleClient {
 		}
 	}
 
+	public void updateClient(Client client){
+		clientDao.updateClient(client);
+	}
+	
 	public void deleteClient(int codeClientASupp, List<Client> clients) {
 		Client client = clients.get(codeClientASupp);
 		clientDao.deleteClient(client.getCode());

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -129,6 +130,31 @@ public class FClient extends JFrame {
 		btnAjouter.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Add-New-48.png")));
 
 		JButton btnModifier = new JButton("Modifier");
+		btnModifier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(tblClient.getSelectedRow()!=-1){
+					Client client = new Client();
+					client.setCode(txtCode.getText());
+					client.setNom(txtNom.getText());
+					client.setPrenom(txtPrenom.getText());
+					client.setAdresse(txtAdresse.getText());
+					client.setEmail(txtEmail.getText());
+					client.setDate_creation(LocalDate.now());
+					client.setTel_fixe(client.getTel_fixe());
+					client.setTel_mobile(txtMobile.getText());
+					client.setRemarques(txtRemarques.getText());
+					controleClient.updateClient(client);
+					setVisible(false);
+					FClient fenetreClient = new FClient(null);
+					fenetreClient.setVisible(true);
+				}else{
+					JOptionPane erreur = new JOptionPane();
+					erreur.showMessageDialog(null, "Veuillez tout d'abord saisir un client.",
+							"Impossible de modifier", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		btnModifier.setHorizontalAlignment(SwingConstants.LEFT);
 		btnModifier.setIcon(new ImageIcon(FClient.class.getResource("/target/images/gestion/Data-Edit-48.png")));
 		btnModifier.setBounds(10, 215, 142, 51);
@@ -196,6 +222,7 @@ public class FClient extends JFrame {
 		panel_1.add(lblCode);
 
 		txtCode = new JTextField();
+		txtCode.setEnabled(false);
 		txtCode.setBounds(72, 8, 175, 20);
 		panel_1.add(txtCode);
 		txtCode.setColumns(10);
@@ -205,6 +232,7 @@ public class FClient extends JFrame {
 		panel_1.add(lblCreation);
 
 		txtCreation = new JTextField();
+		txtCreation.setEnabled(false);
 		txtCreation.setBounds(303, 8, 175, 20);
 		panel_1.add(txtCreation);
 		txtCreation.setColumns(10);

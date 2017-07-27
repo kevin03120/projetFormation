@@ -39,5 +39,8 @@ public class Article {
 	public void setPrixUnitaire(double prixUnitaire) {
 		this.prixUnitaire = prixUnitaire;
 	}
-	
+	@Override
+	public String toString() {
+		return getDesignation();
+	}
 }

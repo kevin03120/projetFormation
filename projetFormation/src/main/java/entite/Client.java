@@ -17,7 +17,7 @@ public class Client {
 	
 	@Override
 	public String toString() {
-		return getNom() + "" + getPrenom();
+		return getNom() + " " + getPrenom();
 	}
 	
 	public String getCode() {
