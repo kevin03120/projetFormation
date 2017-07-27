@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import src.main.java.controle.ControleArticle;
 import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueArticle;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
@@ -363,11 +364,8 @@ public class FArticle extends JFrame {
 		rdbtnCode.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ArticleDaoMysql articleTri = new ArticleDaoMysql(GlobalConnection.getInstance());	
-				lesArticles = articleTri.getAllArticles(false);
-				tri = false;
-				tableArticles.removeAll();
-				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+				ControleArticle objArticle = new ControleArticle();
+				objArticle.trier(lesArticles, false, tableArticles);
 			}
 		});
 		rdbtnCode.setBounds(129, 568, 109, 23);
@@ -378,12 +376,9 @@ public class FArticle extends JFrame {
 		JRadioButton rdbtnCategorie = new JRadioButton("Cat\u00E9gorie");
 		rdbtnCategorie.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				ArticleDaoMysql articleTri = new ArticleDaoMysql(GlobalConnection.getInstance());	
-				lesArticles = articleTri.getAllArticles(true);
-				tri = true;
-				tableArticles.removeAll();
-				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+			public void mouseClicked(MouseEvent e) {	
+				ControleArticle objArticle = new ControleArticle();
+				objArticle.trier(lesArticles, true, tableArticles);
 			}
 		});
 		rdbtnCategorie.setBounds(240, 568, 109, 23);
