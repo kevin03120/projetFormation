@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import src.main.java.controle.ControleCommande;
 import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
 import src.main.java.controle.modele.ModeleDynamiqueCommande;
@@ -30,6 +31,7 @@ public class FCommandeExistante extends JFrame {
 	private JPanel contentPane;
 	private JTable tblCommande;
 	private JTextField txtRecherche;
+	private ControleCommande controleCommande;
 
 	/**
 	 * Launch the application.
@@ -51,7 +53,7 @@ public class FCommandeExistante extends JFrame {
 	 * Create the frame.
 	 */
 	public FCommandeExistante() {
-		CommandeDaoMysql commandeDao = new CommandeDaoMysql(GlobalConnection.getInstance());
+		controleCommande = new ControleCommande();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FCommandeExistante.class.getResource("/target/images/Moon-32.png")));
 		setTitle("Gestion des commandes existantes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -130,15 +132,14 @@ public class FCommandeExistante extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(tblCommande);
-		
-		tblCommande.setModel(new ModeleDynamiqueCommande(commandeDao.getAllCommandes()));
+		tblCommande.setModel(controleCommande.getModeleCommande());
 		
 		JLabel lblTotalCommande = new JLabel("Total des commandes");
 		lblTotalCommande.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTotalCommande.setBounds(291, 496, 137, 14);
 		contentPane.add(lblTotalCommande);
 		
-		JLabel lblPrix = new JLabel("Prix " + commandeDao.getTotalPrixCommandes() + "€");
+		JLabel lblPrix = new JLabel("Prix " + controleCommande.getTotalPrixTTC() + "€");
 		lblPrix.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPrix.setBounds(452, 497, 94, 14);
 		contentPane.add(lblPrix);

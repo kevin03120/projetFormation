@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.main.java.entite.Client;
 import src.main.java.entite.Commande;
 
 public class CommandeDaoMysql {

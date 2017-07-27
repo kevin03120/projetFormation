@@ -33,4 +33,10 @@ public class ControleCommande {
 	public double getTotalPrixTTC(){
 		return commandeDao.getTotalPrixCommandes();
 	}
+	
+	public void deleteClient(String code){
+		commandeDao.deleteClient(code);
+	}
+	
+	
 }

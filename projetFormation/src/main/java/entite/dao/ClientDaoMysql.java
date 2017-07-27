@@ -47,6 +47,23 @@ public class ClientDaoMysql {
 			e.printStackTrace();
 		}
 	}
+
+	
+	public void updateClient(Client c) {
+		try {
+			String fidelite;
+			state = conn.createStatement();
+			if(c.isFidelite()){
+				fidelite = "TRUE";
+			}else{
+				fidelite = "FALSE";
+			}
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			int a = state.executeUpdate("UPDATE `client` SET `id_client`= "+ c.getCode() +",`nom_client`= '" + c.getNom() + "',`prenom_client`= '" + c.getPrenom() + "',`date_creation`= '" + dtf.format(c.getDate_creation()) + "',`fidelite`= " + c.isFidelite() + ",`adresse`= '"+ c.getAdresse() + "',`tel_fixe`= '" + c.getTel_fixe() + "',`tel_mobile`= '" +c.getTel_mobile() + "',`email`= '"+c.getEmail() +"',`remarques`= '" + c.getRemarques() + "' WHERE `id_client` = " + c.getCode());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public List<Client> getClientParCode(String code){
 		Client client = null;
