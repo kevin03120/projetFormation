@@ -12,9 +12,11 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
-import src.main.java.controle.UserDaoMysql;
-import src.main.java.metier.User;
-import src.main.java.singleton.GlobalConnection;
+
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.entite.User;
+import src.main.java.entite.dao.UserDaoMysql;
+
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.awt.SystemColor;

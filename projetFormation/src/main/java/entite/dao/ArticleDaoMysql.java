@@ -1,4 +1,4 @@
-package src.main.java.controle;
+package src.main.java.entite.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package src.main.java.controle;
+package src.main.java.entite.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import src.main.java.metier.Client;
-import src.main.java.metier.User;
+import src.main.java.entite.Client;
+import src.main.java.entite.User;
 
 public class ClientDaoMysql {
 	Connection conn = null;

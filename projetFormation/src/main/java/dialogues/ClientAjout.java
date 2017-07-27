@@ -12,9 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
-import src.main.java.controle.ClientDaoMysql;
-import src.main.java.metier.Client;
-import src.main.java.singleton.GlobalConnection;
+import src.main.java.controle.ControleClient;
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.entite.Client;
+import src.main.java.entite.dao.ClientDaoMysql;
 
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -42,13 +43,15 @@ public class ClientAjout extends JPanel {
 	private JTextField txtEmail;
 	private JCheckBox chkCarteFidelite;
 	private JFormattedTextField txtCreation;
+	private ClientAjout cliAjout;
+	private ControleClient controleClient;
 
 	/**
 	 * Create the panel.
 	 */
 	public ClientAjout(ClientAccueil a) {
-		String db = "jdbc:mysql://localhost:3306/luna";
-		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
+		cliAjout = this;
+		controleClient = new ControleClient();
 		setBackground(new Color(175, 238, 238));
 		setLayout(null);
 
@@ -70,7 +73,7 @@ public class ClientAjout extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				boolean isExist = false;
 				if (!txtCode.getText().equals("")) {
-					for (Client cli : clientDao.getAllClient()) {
+					for (Client cli : controleClient.getMesClients()) {
 						if (cli.getCode().equals(txtCode.getText())) {
 							isExist = true;
 						}
@@ -86,7 +89,7 @@ public class ClientAjout extends JPanel {
 						c.setTel_fixe(txtFixe.getText());
 						c.setTel_mobile(txtMobile.getText());
 						c.setRemarques(txtRemarques.getText());
-						clientDao.addClient(c);
+						controleClient.addClient(c);
 						a.setVisible(false);
 						ClientAccueil acc = new ClientAccueil(null);
 						acc.setVisible(true);

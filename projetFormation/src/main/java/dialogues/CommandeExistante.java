@@ -14,11 +14,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import src.main.java.controle.ClientDaoMysql;
-import src.main.java.controle.CommandeDaoMysql;
-import src.main.java.controle.ModeleDynamiqueClient;
-import src.main.java.controle.ModeleDynamiqueCommande;
-import src.main.java.singleton.GlobalConnection;
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.controle.modele.ModeleDynamiqueClient;
+import src.main.java.controle.modele.ModeleDynamiqueCommande;
+import src.main.java.entite.dao.ClientDaoMysql;
+import src.main.java.entite.dao.CommandeDaoMysql;
 
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
@@ -51,7 +51,6 @@ public class CommandeExistante extends JFrame {
 	 * Create the frame.
 	 */
 	public CommandeExistante() {
-		String db = "jdbc:mysql://localhost:3306/luna";
 		CommandeDaoMysql commandeDao = new CommandeDaoMysql(GlobalConnection.getInstance());
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CommandeExistante.class.getResource("/target/images/Moon-32.png")));
 		setTitle("Gestion des commandes existantes");

@@ -1,11 +1,11 @@
-package src.main.java.controle;
+package src.main.java.controle.modele;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import src.main.java.metier.Article;
+import src.main.java.entite.Article;
 
 public class ModeleDynamiqueArticle  extends AbstractTableModel {
 	private List<Article> lesArticles ;

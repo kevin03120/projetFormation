@@ -12,10 +12,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import src.main.java.controle.ClientDaoMysql;
-import src.main.java.controle.ModeleDynamiqueClient;
-import src.main.java.metier.Client;
-import src.main.java.singleton.GlobalConnection;
+import src.main.java.controle.ControleClient;
+import src.main.java.controle.connexion.GlobalConnection;
+import src.main.java.controle.modele.ModeleDynamiqueClient;
+import src.main.java.entite.Client;
+import src.main.java.entite.dao.ClientDaoMysql;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -28,6 +29,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle.Control;
 
 public class ClientRecherche extends JPanel {
 	private JTextField txtCode;
@@ -40,13 +42,13 @@ public class ClientRecherche extends JPanel {
 	private JTextField txtEmail;
 	private JTextField txtRemarque;
 	private JTable tblClient;
+	private ControleClient controleClient;
 	private List<Client> mesClients;
 	/**
 	 * Create the panel.
 	 */
 	public ClientRecherche(ClientAccueil a) {
-		String db = "jdbc:mysql://localhost:3306/luna";
-		ClientDaoMysql clientDao = new ClientDaoMysql(GlobalConnection.getInstance());
+		controleClient = new ControleClient();
 		setBackground(new Color(224, 255, 255));
 		setLayout(null);
 		
@@ -67,13 +69,13 @@ public class ClientRecherche extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				mesClients = new ArrayList<>();
 				if(!txtCode.getText().equals("")){
-					mesClients = clientDao.getClientParCode(txtCode.getText());
+					mesClients = controleClient.getClientParCode(txtCode.getText());
 				}else{
 					if(!txtNom.getText().equals("")){
-						mesClients = clientDao.getClientParNom(txtNom.getText());
+						mesClients = controleClient.getClientParNom(txtNom.getText());
 					}else{
 						if(!txtPrenom.getText().equals("")){
-							mesClients = clientDao.getClientParPrenom(txtPrenom.getText());
+							mesClients = controleClient.getClientParPrenom(txtPrenom.getText());
 						}
 					}
 				}
@@ -133,6 +135,7 @@ public class ClientRecherche extends JPanel {
 		txtCreation.setColumns(10);
 		
 		JCheckBox chkboxFidelite = new JCheckBox("Carte de fid\u00E9lit\u00E9");
+		chkboxFidelite.setEnabled(false);
 		chkboxFidelite.setBounds(489, 7, 114, 23);
 		panel_1.add(chkboxFidelite);
 		
