@@ -236,19 +236,8 @@ public class FArticle extends JFrame {
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Article article = new Article();
-				article.setCode(new Integer(txtCode.getText()));
-				article.setDesignation(txtDesignation.getText());
-				article.setCategorie(cBoxCategorie.getSelectedItem().toString());
-				article.setQuantite(new Integer(txtQuantite.getText()));
-				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
-				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-				articleDao.ajouterArticle(article);
-				lesArticles = articleDao.getAllArticles(false);
-				tableArticles.removeAll();
-				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
-				
-				
+				ControleArticle objArticle = new ControleArticle();
+				objArticle.ajouterArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
 			}
 		});
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -260,17 +249,8 @@ public class FArticle extends JFrame {
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Article article = new Article();
-				article.setCode(new Integer(txtCode.getText()));
-				article.setDesignation(txtDesignation.getText());
-				article.setCategorie(cBoxCategorie.getSelectedItem().toString());
-				article.setQuantite(new Integer(txtQuantite.getText()));
-				article.setPrixUnitaire(new Double(txtPrixUnitaire.getText()));
-				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-				articleDao.modifierArticle(article);
-				lesArticles = articleDao.getAllArticles(false);
-				tableArticles.removeAll();
-				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+				ControleArticle objArticle = new ControleArticle();
+				objArticle.modifierArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
 			}
 		});
 		btnModifier.setEnabled(false);
@@ -283,14 +263,8 @@ public class FArticle extends JFrame {
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Article article = new Article();
-				ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-				int idTab = tableArticles.getSelectedRow();
-				int idArticle = lesArticles.get(idTab).getCode();
-				articleDao.deleteArticle(idArticle);	
-				lesArticles = articleDao.getAllArticles(false);
-				tableArticles.removeAll();
-				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+				ControleArticle objArticle = new ControleArticle();
+				objArticle.supprimer(tableArticles, lesArticles);
 			}
 		});
 		btnSupprimer.setEnabled(false);
@@ -323,15 +297,8 @@ public class FArticle extends JFrame {
 		tableArticles.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Article article = new Article();
-				int idRow = tableArticles.getSelectedRow();
-				article = lesArticles.get(idRow);
-				txtCode.setText(Integer.toString(article.getCode()));
-				cBoxCategorie.setSelectedItem(article.getCategorie());
-				txtDesignation.setText(article.getDesignation());
-				txtQuantite.setText(Integer.toString(article.getQuantite()));
-				txtPrixUnitaire.setText(Double.toString(article.getPrixUnitaire()));
-				sliderQuantite.setValue((article.getQuantite()));
+				ControleArticle objArticle = new ControleArticle();
+				objArticle.majTextBox(tableArticles, txtCode, cBoxCategorie, txtDesignation, sliderQuantite, txtQuantite, txtPrixUnitaire, lesArticles);
 				btnModifier.setEnabled(true);
 				btnSupprimer.setEnabled(true);
 			}
