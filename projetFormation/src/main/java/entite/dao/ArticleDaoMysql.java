@@ -52,12 +52,11 @@ public class ArticleDaoMysql {
 			e.printStackTrace();
 		}
 	}
-	public void ajouterArticle(Article article) {
+	public void ajouterArticle(String categorie, String designation, int quantite, double prix) {
 		int idCat = 0;
 		try {
 			state = conn.createStatement();
-			String nomCat = article.getCategorie();
-			res = state.executeQuery("SELECT id_categorie FROM categorie WHERE nom_categorie = '" + nomCat+"'");
+			res = state.executeQuery("SELECT id_categorie FROM categorie WHERE nom_categorie = '" + categorie+"'");
 			res.next();
 			idCat = res.getInt("id_categorie");
 				
@@ -66,8 +65,8 @@ public class ArticleDaoMysql {
 			e.printStackTrace();
 		}
 		try {
-			state.executeUpdate("INSERT INTO article VALUES ('" + article.getCode() + "','" + article.getDesignation() + "','" 
-					+ article.getQuantite() + "','" + article.getPrixUnitaire() + "','" + idCat + "');");
+			state.executeUpdate("INSERT INTO article(designation, quantite, prix, id_categorie) VALUES ('" + designation + "','" 
+					+ quantite + "','" + prix + "','" + idCat + "');");
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

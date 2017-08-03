@@ -201,6 +201,7 @@ public class FArticle extends JFrame {
 		txtCode.setBounds(130, 11, 330, 20);
 		panelDesc.add(txtCode);
 		txtCode.setColumns(10);
+		txtCode.enable(false);
 		
 		txtDesignation = new JTextField();
 		txtDesignation.setColumns(10);
@@ -243,7 +244,7 @@ public class FArticle extends JFrame {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ControleArticle objArticle = new ControleArticle();
-				objArticle.ajouterArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
+				objArticle.ajouterArticle(tableArticles, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
 				txtCode.setText("");
 				txtDesignation.setText("");
 				txtPrixUnitaire.setText("");

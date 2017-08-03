@@ -68,17 +68,15 @@ public class ControleArticle {
 		tableau.removeAll();
 		tableau.setModel(new ModeleDynamiqueArticle(lesArticles));
 	}
-	public void ajouterArticle(JTable tableau, JTextField code, JComboBox categorie, JTextField designation, 
+	public void ajouterArticle(JTable tableau, JComboBox categorie, JTextField designation, 
 			JTextField quantite, JTextField prix, List<Article> lesArticles) {
 		
-		Article article = new Article();
-		article.setCode(new Integer(code.getText()));
-		article.setDesignation(designation.getText());
-		article.setCategorie(categorie.getSelectedItem().toString());
-		article.setQuantite(new Integer(quantite.getText()));
-		article.setPrixUnitaire(new Double(prix.getText()));
+		String des = designation.getText();
+		String cat = categorie.getSelectedItem().toString();
+		int quant = new Integer(quantite.getText());
+		double prixU = new Double(prix.getText());
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-		articleDao.ajouterArticle(article);
+		articleDao.ajouterArticle(cat, des, quant, prixU);
 		lesArticles = articleDao.getAllArticles(false);
 		tableau.removeAll();
 		tableau.setModel(new ModeleDynamiqueArticle(lesArticles));	
