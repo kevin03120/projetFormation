@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.function.ToDoubleFunction;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -40,6 +42,7 @@ import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueArticle;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
 import src.main.java.entite.Article;
+import src.main.java.entite.Client;
 import src.main.java.entite.dao.ArticleDaoMysql;
 import src.main.java.entite.dao.ClientDaoMysql;
 import src.main.java.entite.dao.UserDaoMysql;
@@ -323,7 +326,7 @@ public class FArticle extends JFrame {
 		mainPanel.add(scrollPane);
 		
 		tableArticles = new JTable();
-		tableArticles.addMouseListener(new MouseAdapter() {
+		/*tableArticles.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ControleArticle objArticle = new ControleArticle();
@@ -331,23 +334,34 @@ public class FArticle extends JFrame {
 				btnModifier.setEnabled(true);
 				btnSupprimer.setEnabled(true);
 			}
-		});
+		});*/
 		tableArticles.setBackground(Color.WHITE);
 		tableArticles.setForeground(Color.BLACK);
-		tableArticles.setFillsViewportHeight(true);
 		tableArticles.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 13));
 		tableArticles.getTableHeader().setBackground(Color.LIGHT_GRAY);
-		tableArticles.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
+		tableArticles.setModel(new DefaultTableModel(new Object[][] {},
 			new String[] {
 				"Code", "Code cat\u00E9gorie", "D\u00E9signation", "Quantit\u00E9", "Prix unitaire"
 			}
 		));
-		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
-		
 		scrollPane.setColumnHeaderView(tableArticles);
 		scrollPane.setViewportView(tableArticles);
+		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+		tableArticles.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				Article article = lesArticles.get(tableArticles.getSelectedRow());
+				txtCode.setText(Integer.toString(article.getCode()));
+				txtDesignation.setText(article.getDesignation());
+				cBoxCategorie.setSelectedItem(article.getCategorie());
+				txtQuantite.setText(Integer.toString(article.getQuantite()));
+				sliderQuantite.setValue((article.getQuantite()));
+				txtPrixUnitaire.setText(Double.toString(article.getPrixUnitaire()));
+				btnModifier.setEnabled(true);
+				btnSupprimer.setEnabled(true);
+			}
+		});
+		
+		
 		
 		JLabel lblTrierPar = new JLabel("Trier par");
 		lblTrierPar.setBounds(10, 570, 100, 19);

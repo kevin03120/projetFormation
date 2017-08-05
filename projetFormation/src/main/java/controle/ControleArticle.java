@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueArticle;
@@ -34,7 +35,8 @@ public class ControleArticle {
 		
 		ArticleDaoMysql majTextBoxdao = new ArticleDaoMysql(GlobalConnection.getInstance());	
 		Article article = new Article();
-		int idRow = tableau.getSelectedRow();
+		
+		int idRow = Integer.parseInt(tableau.getValueAt(tableau.getSelectedRow(),0).toString());
 		article = lesArticles.get(idRow);
 		code.setText(Integer.toString(article.getCode()));
 		categorie.setSelectedItem(article.getCategorie());
@@ -78,7 +80,7 @@ public class ControleArticle {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 		articleDao.ajouterArticle(cat, des, quant, prixU);
 		lesArticles = articleDao.getAllArticles(false);
-		tableau.removeAll();
-		tableau.setModel(new ModeleDynamiqueArticle(lesArticles));	
+		/*tableau.removeAll();
+		tableau.setModel(new ModeleDynamiqueArticle(lesArticles));*/
 	}
 }
