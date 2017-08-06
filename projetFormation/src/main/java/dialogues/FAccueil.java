@@ -146,6 +146,14 @@ public class FAccueil extends JFrame {
 		panel_1.add(btnClient, gbc_btnClient);
 		
 		JButton btnStatistique = new JButton("");
+		btnStatistique.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				FStatistiques fenetreStat = new FStatistiques("Statistiques","Statistiques des articles vendus");
+				fenetreStat.setVisible(true);
+			}
+		});
 		btnStatistique.setIcon(new ImageIcon(FAccueil.class.getResource("/target/images/accueil/Diagram-128.png")));
 		GridBagConstraints gbc_btnStatistique = new GridBagConstraints();
 		gbc_btnStatistique.insets = new Insets(0, 0, 5, 5);

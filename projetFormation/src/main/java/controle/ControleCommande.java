@@ -1,5 +1,6 @@
 package src.main.java.controle;
 
+import java.util.HashMap;
 import java.util.List;
 
 import src.main.java.controle.connexion.GlobalConnection;
@@ -44,6 +45,14 @@ public class ControleCommande {
 	
 	public void addLigneCommande(int codeArticle, int quantite){
 		commandeDao.addLigneCommande(codeArticle, quantite);
+	}
+	
+	public HashMap<String, Integer> statCommandes(){
+		return commandeDao.statCommandes();
+	}
+	
+	public int getTotal(){
+		return commandeDao.totalVente();
 	}
 	
 }
