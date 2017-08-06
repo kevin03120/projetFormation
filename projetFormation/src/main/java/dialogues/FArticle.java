@@ -8,10 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
@@ -27,6 +30,8 @@ import java.util.List;
 import java.util.function.ToDoubleFunction;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -37,6 +42,7 @@ import src.main.java.controle.connexion.GlobalConnection;
 import src.main.java.controle.modele.ModeleDynamiqueArticle;
 import src.main.java.controle.modele.ModeleDynamiqueClient;
 import src.main.java.entite.Article;
+import src.main.java.entite.Client;
 import src.main.java.entite.dao.ArticleDaoMysql;
 import src.main.java.entite.dao.ClientDaoMysql;
 import src.main.java.entite.dao.UserDaoMysql;
@@ -89,6 +95,8 @@ public class FArticle extends JFrame {
 		
 		
 		
+		setTitle("Gestion des articles");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FConnexion.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 968, 640);
 		contentPane = new JPanel();
@@ -157,54 +165,55 @@ public class FArticle extends JFrame {
 		contentPane.add(mainPanel);
 		mainPanel.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 790, 163);
-		mainPanel.add(panel);
-		panel.setLayout(null);
+		JPanel panelDesc = new JPanel();
+		panelDesc.setBounds(0, 0, 790, 163);
+		mainPanel.add(panelDesc);
+		panelDesc.setLayout(null);
 		
 		JLabel lblCode = new JLabel("Code");
 		lblCode.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCode.setBounds(10, 11, 110, 17);
 		lblCode.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel.add(lblCode);
+		panelDesc.add(lblCode);
 		
 		JLabel lblDesignation = new JLabel("D\u00E9signation");
 		lblDesignation.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDesignation.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDesignation.setBounds(10, 39, 110, 17);
-		panel.add(lblDesignation);
+		panelDesc.add(lblDesignation);
 		
 		JLabel lblQuantite = new JLabel("Quantit\u00E9");
 		lblQuantite.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblQuantite.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblQuantite.setBounds(10, 67, 110, 17);
-		panel.add(lblQuantite);
+		panelDesc.add(lblQuantite);
 		
 		JLabel lblCategorie = new JLabel("Cat\u00E9gorie");
 		lblCategorie.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCategorie.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCategorie.setBounds(470, 11, 110, 17);
-		panel.add(lblCategorie);
+		panelDesc.add(lblCategorie);
 		
 		JLabel lblPrixUnitaire = new JLabel("Prix Unitaire");
 		lblPrixUnitaire.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPrixUnitaire.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPrixUnitaire.setBounds(470, 67, 110, 17);
-		panel.add(lblPrixUnitaire);
+		panelDesc.add(lblPrixUnitaire);
 		
 		txtCode = new JTextField();
 		txtCode.setBounds(130, 11, 330, 20);
-		panel.add(txtCode);
+		panelDesc.add(txtCode);
 		txtCode.setColumns(10);
+		txtCode.enable(false);
 		
 		txtDesignation = new JTextField();
 		txtDesignation.setColumns(10);
 		txtDesignation.setBounds(130, 39, 626, 20);
-		panel.add(txtDesignation);
+		panelDesc.add(txtDesignation);
 		
 		txtPrixUnitaire = new JTextField();
 		txtPrixUnitaire.setBounds(590, 67, 166, 20);
-		panel.add(txtPrixUnitaire);
+		panelDesc.add(txtPrixUnitaire);
 		txtPrixUnitaire.setColumns(10);
 		
 		JSlider sliderQuantite = new JSlider();
@@ -217,17 +226,17 @@ public class FArticle extends JFrame {
 			}
 		});
 		sliderQuantite.setBounds(130, 67, 260, 31);
-		panel.add(sliderQuantite);
+		panelDesc.add(sliderQuantite);
 		
 		
 		txtQuantite = new JTextField();
 		txtQuantite.setText("0");
 		txtQuantite.setBounds(400, 67, 60, 20);
-		panel.add(txtQuantite);
+		panelDesc.add(txtQuantite);
 		txtQuantite.setColumns(10);
 		JComboBox cBoxCategorie = new JComboBox();
 		cBoxCategorie.setBounds(590, 11, 166, 20);
-		panel.add(cBoxCategorie);
+		panelDesc.add(cBoxCategorie);
 		
 		ArticleDaoMysql categoriesDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 		lesCategories = articleDao.lireCategories();
@@ -238,13 +247,17 @@ public class FArticle extends JFrame {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ControleArticle objArticle = new ControleArticle();
-				objArticle.ajouterArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
+				objArticle.ajouterArticle(tableArticles, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
+				txtCode.setText("");
+				txtDesignation.setText("");
+				txtPrixUnitaire.setText("");
+				txtQuantite.setText("");
 			}
 		});
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnAjouter.setIcon(new ImageIcon("C:\\images\\gestion\\Add-New-48.png"));
 		btnAjouter.setBounds(10, 102, 150, 50);
-		panel.add(btnAjouter);
+		panelDesc.add(btnAjouter);
 		UI.deshabillerBouton(btnAjouter);
 		
 		JButton btnModifier = new JButton("Modifier");
@@ -252,27 +265,45 @@ public class FArticle extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ControleArticle objArticle = new ControleArticle();
 				objArticle.modifierArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
+				txtCode.setText("");
+				txtDesignation.setText("");
+				txtPrixUnitaire.setText("");
+				txtQuantite.setText("");
 			}
 		});
 		btnModifier.setEnabled(false);
 		btnModifier.setIcon(new ImageIcon("C:\\images\\gestion\\Data-Edit-48.png"));
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnModifier.setBounds(199, 101, 150, 50);
-		panel.add(btnModifier);
+		panelDesc.add(btnModifier);
 		UI.deshabillerBouton(btnModifier);
 		
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ControleArticle objArticle = new ControleArticle();
-				objArticle.supprimer(tableArticles, lesArticles);
+				JOptionPane jop = new JOptionPane();
+
+				int option = jop.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet article ?",
+						"Demande de validation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (option == JOptionPane.OK_OPTION) {
+						ControleArticle objArticle = new ControleArticle();
+						objArticle.supprimer(tableArticles, lesArticles);
+						txtCode.setText("");
+						txtDesignation.setText("");
+						txtPrixUnitaire.setText("");
+						txtQuantite.setText("");
+					
+				} else {
+					jop.setVisible(false);
+				}
 			}
+				
 		});
 		btnSupprimer.setEnabled(false);
 		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSupprimer.setBounds(410, 102, 150, 50);
-		panel.add(btnSupprimer);
+		panelDesc.add(btnSupprimer);
 		UI.deshabillerBouton(btnSupprimer);
 		
 		JButton btnEffacer = new JButton("Effacer");
@@ -287,7 +318,7 @@ public class FArticle extends JFrame {
 		btnEffacer.setIcon(new ImageIcon("C:\\images\\gestion\\Cancel-48.png"));
 		btnEffacer.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnEffacer.setBounds(606, 102, 150, 50);
-		panel.add(btnEffacer);
+		panelDesc.add(btnEffacer);
 		UI.deshabillerBouton(btnEffacer);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -295,7 +326,7 @@ public class FArticle extends JFrame {
 		mainPanel.add(scrollPane);
 		
 		tableArticles = new JTable();
-		tableArticles.addMouseListener(new MouseAdapter() {
+		/*tableArticles.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ControleArticle objArticle = new ControleArticle();
@@ -303,23 +334,34 @@ public class FArticle extends JFrame {
 				btnModifier.setEnabled(true);
 				btnSupprimer.setEnabled(true);
 			}
-		});
+		});*/
 		tableArticles.setBackground(Color.WHITE);
 		tableArticles.setForeground(Color.BLACK);
-		tableArticles.setFillsViewportHeight(true);
 		tableArticles.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 13));
 		tableArticles.getTableHeader().setBackground(Color.LIGHT_GRAY);
-		tableArticles.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
+		tableArticles.setModel(new DefaultTableModel(new Object[][] {},
 			new String[] {
 				"Code", "Code cat\u00E9gorie", "D\u00E9signation", "Quantit\u00E9", "Prix unitaire"
 			}
 		));
-		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
-		
 		scrollPane.setColumnHeaderView(tableArticles);
 		scrollPane.setViewportView(tableArticles);
+		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
+		tableArticles.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				Article article = lesArticles.get(tableArticles.getSelectedRow());
+				txtCode.setText(Integer.toString(article.getCode()));
+				txtDesignation.setText(article.getDesignation());
+				cBoxCategorie.setSelectedItem(article.getCategorie());
+				txtQuantite.setText(Integer.toString(article.getQuantite()));
+				sliderQuantite.setValue((article.getQuantite()));
+				txtPrixUnitaire.setText(Double.toString(article.getPrixUnitaire()));
+				btnModifier.setEnabled(true);
+				btnSupprimer.setEnabled(true);
+			}
+		});
+		
+		
 		
 		JLabel lblTrierPar = new JLabel("Trier par");
 		lblTrierPar.setBounds(10, 570, 100, 19);
@@ -328,6 +370,7 @@ public class FArticle extends JFrame {
 		mainPanel.add(lblTrierPar);
 		
 		JRadioButton rdbtnCode = new JRadioButton("Code");
+		rdbtnCode.setSelected(true);
 		rdbtnCode.isSelected();
 		rdbtnCode.addMouseListener(new MouseAdapter() {
 			@Override
