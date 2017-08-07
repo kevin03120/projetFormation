@@ -87,14 +87,12 @@ public class FArticle extends JFrame {
 	 */
 	public FArticle(List<Article> listArticles) {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
-		if (listArticles == null ) {	
+		if (listArticles == null) {
 			lesArticles = articleDao.getAllArticles(tri);
 		} else {
 			lesArticles = listArticles;
 		}
-		
-		
-		
+
 		setTitle("Gestion des articles");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(FConnexion.class.getResource("/target/images/Moon-32.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,25 +101,25 @@ public class FArticle extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBackground(new Color(51, 204, 0));
 		menuPanel.setBounds(0, 0, 162, 602);
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(null);
-		
+
 		JLabel lblArticles = new JLabel("Articles\r\n");
 		lblArticles.setBounds(10, 11, 132, 69);
 		lblArticles.setIcon(new ImageIcon("C:\\images\\gestion\\article\\Product-64-actif.png"));
 		lblArticles.setFont(new Font("Dialog", Font.BOLD, 16));
 		menuPanel.add(lblArticles);
-		
+
 		JButton btnAccueil = new JButton("Accueil\r\n");
 		btnAccueil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				FAccueil fenetreAccueil = new FAccueil();
-				fenetreAccueil.setVisible(true);		
+				fenetreAccueil.setVisible(true);
 			}
 		});
 		btnAccueil.setBounds(10, 536, 140, 55);
@@ -131,7 +129,7 @@ public class FArticle extends JFrame {
 		btnAccueil.setIcon(new ImageIcon("C:\\images\\gestion\\Home-48.png"));
 		menuPanel.add(btnAccueil);
 		UI.deshabillerBouton(btnAccueil);
-		
+
 		JButton btnApercu = new JButton("Aper\u00E7u");
 		btnApercu.setForeground(new Color(255, 255, 255));
 		btnApercu.setBackground(new Color(51, 204, 0));
@@ -140,7 +138,7 @@ public class FArticle extends JFrame {
 		btnApercu.setBounds(10, 218, 140, 30);
 		menuPanel.add(btnApercu);
 		UI.deshabillerBouton(btnApercu);
-		
+
 		JButton btnImprimer = new JButton("Imprimer");
 		btnImprimer.setForeground(new Color(255, 255, 255));
 		btnImprimer.setBackground(new Color(51, 204, 0));
@@ -149,7 +147,7 @@ public class FArticle extends JFrame {
 		btnImprimer.setBounds(10, 265, 140, 30);
 		menuPanel.add(btnImprimer);
 		UI.deshabillerBouton(btnImprimer);
-		
+
 		JButton btnExporter = new JButton("Export");
 		btnExporter.setForeground(new Color(255, 255, 255));
 		btnExporter.setBackground(new Color(51, 204, 0));
@@ -158,64 +156,64 @@ public class FArticle extends JFrame {
 		btnExporter.setBounds(10, 311, 140, 30);
 		menuPanel.add(btnExporter);
 		UI.deshabillerBouton(btnExporter);
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(255, 255, 153));
 		mainPanel.setBounds(164, 0, 788, 602);
 		contentPane.add(mainPanel);
 		mainPanel.setLayout(null);
-		
+
 		JPanel panelDesc = new JPanel();
 		panelDesc.setBounds(0, 0, 790, 163);
 		mainPanel.add(panelDesc);
 		panelDesc.setLayout(null);
-		
+
 		JLabel lblCode = new JLabel("Code");
 		lblCode.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCode.setBounds(10, 11, 110, 17);
 		lblCode.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panelDesc.add(lblCode);
-		
+
 		JLabel lblDesignation = new JLabel("D\u00E9signation");
 		lblDesignation.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDesignation.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDesignation.setBounds(10, 39, 110, 17);
 		panelDesc.add(lblDesignation);
-		
+
 		JLabel lblQuantite = new JLabel("Quantit\u00E9");
 		lblQuantite.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblQuantite.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblQuantite.setBounds(10, 67, 110, 17);
 		panelDesc.add(lblQuantite);
-		
+
 		JLabel lblCategorie = new JLabel("Cat\u00E9gorie");
 		lblCategorie.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCategorie.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCategorie.setBounds(470, 11, 110, 17);
 		panelDesc.add(lblCategorie);
-		
+
 		JLabel lblPrixUnitaire = new JLabel("Prix Unitaire");
 		lblPrixUnitaire.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPrixUnitaire.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPrixUnitaire.setBounds(470, 67, 110, 17);
 		panelDesc.add(lblPrixUnitaire);
-		
+
 		txtCode = new JTextField();
 		txtCode.setBounds(130, 11, 330, 20);
 		panelDesc.add(txtCode);
 		txtCode.setColumns(10);
 		txtCode.enable(false);
-		
+
 		txtDesignation = new JTextField();
 		txtDesignation.setColumns(10);
 		txtDesignation.setBounds(130, 39, 626, 20);
 		panelDesc.add(txtDesignation);
-		
+
 		txtPrixUnitaire = new JTextField();
 		txtPrixUnitaire.setBounds(590, 67, 166, 20);
 		panelDesc.add(txtPrixUnitaire);
 		txtPrixUnitaire.setColumns(10);
-		
+
 		JSlider sliderQuantite = new JSlider();
 		sliderQuantite.setPaintTicks(true);
 		sliderQuantite.setValue(0);
@@ -227,8 +225,7 @@ public class FArticle extends JFrame {
 		});
 		sliderQuantite.setBounds(130, 67, 260, 31);
 		panelDesc.add(sliderQuantite);
-		
-		
+
 		txtQuantite = new JTextField();
 		txtQuantite.setText("0");
 		txtQuantite.setBounds(400, 67, 60, 20);
@@ -237,21 +234,32 @@ public class FArticle extends JFrame {
 		JComboBox cBoxCategorie = new JComboBox();
 		cBoxCategorie.setBounds(590, 11, 166, 20);
 		panelDesc.add(cBoxCategorie);
-		
+
 		ArticleDaoMysql categoriesDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 		lesCategories = articleDao.lireCategories();
-		for(String categories : lesCategories) {
+		for (String categories : lesCategories) {
 			cBoxCategorie.addItem(categories);
 		}
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ControleArticle objArticle = new ControleArticle();
-				objArticle.ajouterArticle(tableArticles, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
-				txtCode.setText("");
-				txtDesignation.setText("");
-				txtPrixUnitaire.setText("");
-				txtQuantite.setText("");
+				int checkQuant = new Integer(txtQuantite.getText());
+				if (checkQuant > 100 || checkQuant <= 0) {
+					JFrame alerteAjout = new JFrame("Erreur de quantité");
+					JOptionPane.showMessageDialog(alerteAjout, "Veuillez entrer une quantité comprise entre 1 et 100");
+				} else {
+					objArticle.ajouterArticle(tableArticles, cBoxCategorie, txtDesignation, txtQuantite,
+							txtPrixUnitaire, lesArticles);
+					txtCode.setText("");
+					txtDesignation.setText("");
+					txtPrixUnitaire.setText("");
+					txtQuantite.setText("");
+					FArticle fArt = new FArticle(listArticles);
+					setVisible(false);
+					fArt.setVisible(true);
+				}
+
 			}
 		});
 		btnAjouter.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -259,16 +267,26 @@ public class FArticle extends JFrame {
 		btnAjouter.setBounds(10, 102, 150, 50);
 		panelDesc.add(btnAjouter);
 		UI.deshabillerBouton(btnAjouter);
-		
+
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ControleArticle objArticle = new ControleArticle();
-				objArticle.modifierArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite, txtPrixUnitaire, lesArticles);
-				txtCode.setText("");
-				txtDesignation.setText("");
-				txtPrixUnitaire.setText("");
-				txtQuantite.setText("");
+				int checkQuant = new Integer(txtQuantite.getText());
+				if (checkQuant > 100 || checkQuant <= 0) {
+					JFrame alerteAjout = new JFrame("Erreur de quantité");
+					JOptionPane.showMessageDialog(alerteAjout, "Veuillez entrer une quantité comprise entre 1 et 100");
+				} else {
+					objArticle.modifierArticle(tableArticles, txtCode, cBoxCategorie, txtDesignation, txtQuantite,
+							txtPrixUnitaire, lesArticles);
+					txtCode.setText("");
+					txtDesignation.setText("");
+					txtPrixUnitaire.setText("");
+					txtQuantite.setText("");
+					FArticle fArt = new FArticle(listArticles);
+					setVisible(false);
+					fArt.setVisible(true);
+				}
 			}
 		});
 		btnModifier.setEnabled(false);
@@ -277,7 +295,7 @@ public class FArticle extends JFrame {
 		btnModifier.setBounds(199, 101, 150, 50);
 		panelDesc.add(btnModifier);
 		UI.deshabillerBouton(btnModifier);
-		
+
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -286,18 +304,21 @@ public class FArticle extends JFrame {
 				int option = jop.showConfirmDialog(null, "Voulez-vous vraiment supprimer cet article ?",
 						"Demande de validation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.OK_OPTION) {
-						ControleArticle objArticle = new ControleArticle();
-						objArticle.supprimer(tableArticles, lesArticles);
-						txtCode.setText("");
-						txtDesignation.setText("");
-						txtPrixUnitaire.setText("");
-						txtQuantite.setText("");
-					
+					ControleArticle objArticle = new ControleArticle();
+					objArticle.supprimer(tableArticles, lesArticles);
+					txtCode.setText("");
+					txtDesignation.setText("");
+					txtPrixUnitaire.setText("");
+					txtQuantite.setText("");
+					FArticle fArt = new FArticle(listArticles);
+					setVisible(false);
+					fArt.setVisible(true);
+
 				} else {
 					jop.setVisible(false);
 				}
 			}
-				
+
 		});
 		btnSupprimer.setEnabled(false);
 		btnSupprimer.setIcon(new ImageIcon("C:\\images\\gestion\\Garbage-Open-48.png"));
@@ -305,7 +326,7 @@ public class FArticle extends JFrame {
 		btnSupprimer.setBounds(410, 102, 150, 50);
 		panelDesc.add(btnSupprimer);
 		UI.deshabillerBouton(btnSupprimer);
-		
+
 		JButton btnEffacer = new JButton("Effacer");
 		btnEffacer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -320,30 +341,28 @@ public class FArticle extends JFrame {
 		btnEffacer.setBounds(606, 102, 150, 50);
 		panelDesc.add(btnEffacer);
 		UI.deshabillerBouton(btnEffacer);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 161, 790, 400);
 		mainPanel.add(scrollPane);
-		
+
 		tableArticles = new JTable();
-		/*tableArticles.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ControleArticle objArticle = new ControleArticle();
-				objArticle.majTextBox(tableArticles, txtCode, cBoxCategorie, txtDesignation, sliderQuantite, txtQuantite, txtPrixUnitaire, lesArticles);
-				btnModifier.setEnabled(true);
-				btnSupprimer.setEnabled(true);
-			}
-		});*/
+		/*
+		 * tableArticles.addMouseListener(new MouseAdapter() {
+		 * 
+		 * @Override public void mouseClicked(MouseEvent e) { ControleArticle
+		 * objArticle = new ControleArticle();
+		 * objArticle.majTextBox(tableArticles, txtCode, cBoxCategorie,
+		 * txtDesignation, sliderQuantite, txtQuantite, txtPrixUnitaire,
+		 * lesArticles); btnModifier.setEnabled(true);
+		 * btnSupprimer.setEnabled(true); } });
+		 */
 		tableArticles.setBackground(Color.WHITE);
 		tableArticles.setForeground(Color.BLACK);
 		tableArticles.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 13));
 		tableArticles.getTableHeader().setBackground(Color.LIGHT_GRAY);
 		tableArticles.setModel(new DefaultTableModel(new Object[][] {},
-			new String[] {
-				"Code", "Code cat\u00E9gorie", "D\u00E9signation", "Quantit\u00E9", "Prix unitaire"
-			}
-		));
+				new String[] { "Code", "Code cat\u00E9gorie", "D\u00E9signation", "Quantit\u00E9", "Prix unitaire" }));
 		scrollPane.setColumnHeaderView(tableArticles);
 		scrollPane.setViewportView(tableArticles);
 		tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
@@ -360,15 +379,13 @@ public class FArticle extends JFrame {
 				btnSupprimer.setEnabled(true);
 			}
 		});
-		
-		
-		
+
 		JLabel lblTrierPar = new JLabel("Trier par");
 		lblTrierPar.setBounds(10, 570, 100, 19);
 		lblTrierPar.setIcon(new ImageIcon("C:\\images\\gestion\\Sort-Ascending-32.png"));
 		lblTrierPar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		mainPanel.add(lblTrierPar);
-		
+
 		JRadioButton rdbtnCode = new JRadioButton("Code");
 		rdbtnCode.setSelected(true);
 		rdbtnCode.isSelected();
@@ -383,11 +400,11 @@ public class FArticle extends JFrame {
 		rdbtnCode.setBackground(new Color(255, 255, 153));
 		rdbtnCode.setFont(new Font("Tahoma", Font.BOLD, 12));
 		mainPanel.add(rdbtnCode);
-		
+
 		JRadioButton rdbtnCategorie = new JRadioButton("Cat\u00E9gorie");
 		rdbtnCategorie.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {	
+			public void mouseClicked(MouseEvent e) {
 				ControleArticle objArticle = new ControleArticle();
 				objArticle.trier(lesArticles, true, tableArticles);
 			}
@@ -396,17 +413,17 @@ public class FArticle extends JFrame {
 		rdbtnCategorie.setBackground(new Color(255, 255, 153));
 		rdbtnCategorie.setFont(new Font("Tahoma", Font.BOLD, 12));
 		mainPanel.add(rdbtnCategorie);
-		
+
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdbtnCode);
 		buttonGroup.add(rdbtnCategorie);
-		
+
 		JLabel lblRecherche = new JLabel("Recherche");
 		lblRecherche.setBounds(385, 567, 121, 25);
 		lblRecherche.setIcon(new ImageIcon("C:\\images\\gestion\\Preview-48.png"));
 		lblRecherche.setFont(new Font("Tahoma", Font.BOLD, 13));
 		mainPanel.add(lblRecherche);
-		
+
 		txtRecherche = new JTextField();
 		txtRecherche.addInputMethodListener(new InputMethodListener() {
 			public void caretPositionChanged(InputMethodEvent event) {
@@ -415,6 +432,7 @@ public class FArticle extends JFrame {
 				tableArticles.removeAll();
 				tableArticles.setModel(new ModeleDynamiqueArticle(lesArticles));
 			}
+
 			public void inputMethodTextChanged(InputMethodEvent event) {
 				ArticleDaoMysql rechdao = new ArticleDaoMysql(GlobalConnection.getInstance());
 				lesArticles = rechdao.rechercherArticle(txtRecherche.getText());
@@ -425,8 +443,6 @@ public class FArticle extends JFrame {
 		txtRecherche.setBounds(534, 570, 227, 20);
 		mainPanel.add(txtRecherche);
 		txtRecherche.setColumns(10);
-	
-		
-		
+
 	}
 }

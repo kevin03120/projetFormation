@@ -52,8 +52,6 @@ public class ControleArticle {
 		int idArticle = listArticles.get(idTab).getCode();
 		supprimerdao.deleteArticle(idArticle);	
 		listArticles = supprimerdao.getAllArticles(false);
-		tableau.removeAll();
-		tableau.setModel(new ModeleDynamiqueArticle(listArticles));
 	}
 	public void modifierArticle(JTable tableau, JTextField code, JComboBox categorie, JTextField designation, 
 										JTextField quantite, JTextField prix, List<Article> lesArticles) {
@@ -67,8 +65,6 @@ public class ControleArticle {
 		article.setPrixUnitaire(new Double(prix.getText()));
 		modifierdao.modifierArticle(article);
 		lesArticles = modifierdao.getAllArticles(false);
-		tableau.removeAll();
-		tableau.setModel(new ModeleDynamiqueArticle(lesArticles));
 	}
 	public void ajouterArticle(JTable tableau, JComboBox categorie, JTextField designation, 
 			JTextField quantite, JTextField prix, List<Article> lesArticles) {
@@ -80,7 +76,5 @@ public class ControleArticle {
 		ArticleDaoMysql articleDao = new ArticleDaoMysql(GlobalConnection.getInstance());
 		articleDao.ajouterArticle(cat, des, quant, prixU);
 		lesArticles = articleDao.getAllArticles(false);
-		/*tableau.removeAll();
-		tableau.setModel(new ModeleDynamiqueArticle(lesArticles));*/
 	}
 }
